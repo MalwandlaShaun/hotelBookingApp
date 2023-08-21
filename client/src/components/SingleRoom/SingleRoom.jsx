@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 //import { GoLocation } from "react-icons/go";
 import "./singleRoom.css";
 import { Col, Row } from "antd";

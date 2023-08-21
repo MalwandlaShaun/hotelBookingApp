@@ -6,7 +6,7 @@ import { getData } from "../../Api/commonServices";
 import gofLoader from "../../assets/loader.gif";
 import Link from "antd/lib/typography/Link";
 import { useDispatch } from "react-redux";
-import { setHotel } from "../../features/hotelsSlice"; // Path to your slice
+import { setHotel } from "../../features/hotelSlice"; // Path to your slice
 
 //const { Option } = Select;
 const SomeHotels = () => {
