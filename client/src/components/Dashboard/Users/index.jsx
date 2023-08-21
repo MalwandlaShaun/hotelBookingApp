@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { GET_USERS } from "../../../Api/ApiConstant";
 import { getData } from "../../../Api/commonServices";
-import loaderZif from "../../../assets/project-idea.gif";
+import loaderZif from "../../../assets/loader.gif";
 
 import "./index.css";
 const Users = () => {
@@ -56,7 +56,7 @@ const Users = () => {
                       style={{
                         width: "50px",
                         height: "50px",
-                        borderRadius: "50%"
+                        borderRadius: "50%",
                       }}
                       src={photo}
                       alt=""

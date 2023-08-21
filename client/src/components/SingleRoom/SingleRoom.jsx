@@ -7,9 +7,10 @@ import ImageViewer from "react-simple-image-viewer";
 import BookingRoomModal from "./BookingRoomModal";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { getData } from "../../Api/commonServices";
-import { GET_ROOM, GET_SINGLE_HOTEL_DETAILS } from "../../Api/ApiConstant";
+// import { getData } from "../../Api/commonServices";
+// import { GET_ROOM, GET_SINGLE_HOTEL_DETAILS } from "../../Api/ApiConstant";
 import useAuth from "../../hooks/useAuth";
+import { roomsData } from "../../mockData/roomData";
 
 const SingleRoom = () => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -21,6 +22,7 @@ const SingleRoom = () => {
   console.log(currentImage);
   const [room, setRoom] = useState({});
   const [hotel, setHotel] = useState({});
+  //const [hotel] = useState({});
   const openImageViewer = useCallback((index) => {
     setCurrentImage(index);
     setIsViewerOpen(true);
@@ -32,34 +34,43 @@ const SingleRoom = () => {
   };
 
   useEffect(() => {
-    const getRoomDetails = async () => {
-      try {
-        const {
-          data: { roomDetails },
-        } = await getData(GET_ROOM, { id });
-        console.log("singleRoom", roomDetails);
-        setRoom(roomDetails);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getRoomDetails();
+    // const getRoomDetails = async () => {
+    //   try {
+    //     const {
+    //       data: { roomDetails },
+    //     } = await getData(GET_ROOM, { id });
+    //     console.log("singleRoom", roomDetails);
+    //    setRoom(roomDetails);
+    const _id = roomsData.filter((item) => item._id === id);
 
-    const getHotelDetails = async () => {
-      try {
-        const {
-          data: { hotel },
-        } = await getData(GET_SINGLE_HOTEL_DETAILS, { hotelId });
-        setHotel(hotel);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getHotelDetails();
-  }, [hotelId]);
+    console.log("_id", _id[0]);
+    setRoom(_id[0]);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // };
+    //   getRoomDetails();
 
+    //   const getHotelDetails = async () => {
+    //     try {
+    //       const {
+    //         data: { hotel },
+    //       } = await getData(GET_SINGLE_HOTEL_DETAILS, { hotelId });
+    //       setHotel(hotel);
+    //     } catch (err) {
+    //       console.log(err);
+    //     }
+    //   };
+    //   getHotelDetails();
+    // }, [hotelId]);
+
+    const hotetId = roomsData.filter((item) => item.hotelId === hotelId);
+    setHotel(hotetId);
+  }, []);
   const { isLogin } = useAuth();
 
+  console.log(room);
+  //console.log("_id", _id);
   const navigate = useNavigate();
   const handleShowModal = () => {
     if (isLogin) {

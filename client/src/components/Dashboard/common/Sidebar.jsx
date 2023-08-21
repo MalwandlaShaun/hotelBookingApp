@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import classnames from "classnames";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import DashBoardHeader from "./DashBoardHeader";
 import "./sidebar.css";
 import { Divider, message } from "antd";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { BsFillGrid1X2Fill } from "react-icons/bs";
 import { FiUsers } from "react-icons/fi";
-import { RiHotelLine, RiHotelFill } from "react-icons/ri";
+import { RiHotelFill } from "react-icons/ri";
 import { MdHotel, MdAccountBox } from "react-icons/md";
 import { AiOutlineSetting, AiOutlineHome } from "react-icons/ai";
 import { DiGhostSmall } from "react-icons/di";
@@ -36,14 +35,14 @@ const Sidebar = () => {
 
   const adminRoute = [
     { id: 0, title: "Home", path: "/", icon: <AiOutlineHome /> },
-    { id: 1, title: "Dashboard", path: "", icon: <BsFillGrid1X2Fill /> },
-    { id: 2, title: "Users", path: "users", icon: <FiUsers /> },
-    { id: 3, title: "Hotels", path: "hotels", icon: <RiHotelLine /> },
-    { id: 4, title: "Rooms", path: "rooms", icon: <MdHotel /> },
-    { id: 5, title: "Account", path: "account", icon: <MdAccountBox /> },
-    { id: 6, title: "Settings", path: "settings", icon: <AiOutlineSetting /> },
-    { id: 7, title: "My Bookings", path: "my-bookings", icon: <RiHotelFill /> },
-    { id: 8, title: "Bookings", path: "all-bookings", icon: <DiGhostSmall /> }
+
+    { id: 1, title: "Users", path: "users", icon: <FiUsers /> },
+
+    { id: 3, title: "Rooms", path: "rooms", icon: <MdHotel /> },
+    { id: 4, title: "Account", path: "account", icon: <MdAccountBox /> },
+    { id: 5, title: "Settings", path: "settings", icon: <AiOutlineSetting /> },
+    { id: 6, title: "My Bookings", path: "my-bookings", icon: <RiHotelFill /> },
+    { id: 7, title: "Bookings", path: "all-bookings", icon: <DiGhostSmall /> },
   ];
 
   const userRoute = adminRoute.filter(({ path }) => {
@@ -55,9 +54,8 @@ const Sidebar = () => {
   const logOut = () => {
     message.error("Log out successful..,");
     localStorage.clear();
-      navigate("/");
-      window.location.reload(false);
-
+    navigate("/");
+    window.location.reload(false);
   };
 
   return (
@@ -90,7 +88,7 @@ const Sidebar = () => {
           {(isAdmin ? adminRoute : userRoute).map(
             ({ title, path, id, icon }) => (
               <Link
-              key={id}
+                key={id}
                 className={isActive === id ? "active" : "none-active"}
                 to={path}
                 onClick={() => setIsActive(id)}

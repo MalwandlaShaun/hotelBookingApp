@@ -5,9 +5,7 @@ import useAuth from "../hooks/useAuth";
 import loaderZif from "../assets/loader.gif";
 const Register = React.lazy(() => import("../components/Auth/Register"));
 const DashBoard = React.lazy(() => import("../components/Dashboard"));
-const ManageHotels = React.lazy(() =>
-  import("../components/Dashboard/ManageHotels")
-);
+
 const Users = React.lazy(() => import("../components/Dashboard/Users"));
 const NotFound = React.lazy(() => import("../components/NotFound/NotFound"));
 const DashboardHomePage = React.lazy(() =>

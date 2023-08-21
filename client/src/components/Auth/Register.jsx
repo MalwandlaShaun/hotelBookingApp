@@ -1,5 +1,5 @@
 import { Form, Input, message, Modal } from "antd";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import NavBar from "../common/NavBar/NavBar";
 import "./Register.css";
@@ -20,7 +20,6 @@ const Register = () => {
   };
 
   const signUpUser = async (userInfo) => {
-
     try {
       const { data } = await getData(
         isLogin ? SIGN_IN_USER : SIGN_UP_USER,
@@ -41,7 +40,7 @@ const Register = () => {
       ...values,
       photo:
         imageUrl ||
-        "https://banner2.cleanpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg"
+        "https://banner2.cleanpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg",
     };
     signUpUser(newUserData);
   };
@@ -56,7 +55,9 @@ const Register = () => {
 
     try {
       const result = await axios.post(
-        `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/upload`,
+        `https://api.cloudinary.com/v1_1/${
+          import.meta.env.REACT_APP_CLOUD_NAME
+        }/upload`,
         data
       );
       setImageUrl(result.data.secure_url);
@@ -71,7 +72,7 @@ const Register = () => {
       <NavBar />
 
       <Modal
-        visible={isRegisterModalVisible}
+        open={isRegisterModalVisible}
         onCancel={handleCloseModal}
         footer={null}
         width={400}
@@ -114,7 +115,7 @@ const Register = () => {
                   onChange={handleImageUpload}
                 />
                 <div className="svg-avatar">
-                  <label for="img">
+                  <label htmlFor="img">
                     <FiCamera style={{ fontSize: "40px", cursor: "pointer" }} />
                   </label>
                 </div>
@@ -127,8 +128,8 @@ const Register = () => {
                 rules={[
                   {
                     required: true,
-                    message: "name is required!"
-                  }
+                    message: "name is required!",
+                  },
                 ]}
               >
                 <Input placeholder="Your Name" />
@@ -139,8 +140,8 @@ const Register = () => {
               rules={[
                 {
                   required: true,
-                  type: "email"
-                }
+                  type: "email",
+                },
               ]}
             >
               <Input placeholder="Email Address" />
@@ -150,8 +151,8 @@ const Register = () => {
               rules={[
                 {
                   required: true,
-                  message: "'password' is required!"
-                }
+                  message: "'password' is required!",
+                },
               ]}
             >
               <Input.Password placeholder="Password" />
@@ -164,7 +165,7 @@ const Register = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Please confirm your password!"
+                    message: "Please confirm your password!",
                   },
                   ({ getFieldValue }) => ({
                     validator(_, value) {
@@ -177,8 +178,8 @@ const Register = () => {
                           "The two passwords that you entered do not match!"
                         )
                       );
-                    }
-                  })
+                    },
+                  }),
                 ]}
               >
                 <Input.Password placeholder="Confirm Password" />
@@ -188,7 +189,7 @@ const Register = () => {
             <Form.Item>
               <button
                 style={{ width: "100%", marginTop: "3%" }}
-                htmlType="submit"
+                type="submit"
                 className="btn-primary-full"
               >
                 {isLogin ? "Login" : "Sign Up"}
@@ -222,7 +223,7 @@ const Register = () => {
           </Form>
         </div>
       </Modal>
-    </div> 
+    </div>
   );
 };
 

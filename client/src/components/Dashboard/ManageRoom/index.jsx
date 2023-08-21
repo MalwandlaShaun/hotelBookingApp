@@ -1,9 +1,9 @@
 import { Button, Card, Col, Input, Row, Space } from "antd";
-import React, { useEffect, useState } from "react";
-import {  GET_ROOMS } from "../../../Api/ApiConstant";
+import { useEffect, useState } from "react";
+import { GET_ROOMS } from "../../../Api/ApiConstant";
 import { getData } from "../../../Api/commonServices";
 import AddHotelModal from "./AddRoomModal";
-import loaderZif from '../../../assets/project-idea.gif';
+import loaderZif from "../../../assets/loader.gif";
 const { Search } = Input;
 
 const ManageRoom = () => {
@@ -16,7 +16,7 @@ const ManageRoom = () => {
     try {
       const { data } = await getData(GET_ROOMS, {
         lowestPrice: 0,
-        heightPrice: 500
+        heightPrice: 500,
       });
       setRooms(data.rooms);
     } catch (err) {
@@ -32,7 +32,7 @@ const ManageRoom = () => {
   }, [render]);
   const onSearch = (value) => console.log(value);
 
-  console.log('rooms',rooms);
+  console.log("rooms", rooms);
   return (
     <div>
       {/* MODAL  */}
@@ -49,7 +49,7 @@ const ManageRoom = () => {
           placeholder="Search Room"
           onSearch={onSearch}
           style={{
-            width: 500
+            width: 500,
           }}
         />
 
@@ -63,9 +63,9 @@ const ManageRoom = () => {
         </div>
       )}
       <Row gutter={[14, 14]}>
-        {rooms.reverse()?.map(({ title, photo, price },index) => (
+        {rooms.reverse()?.map(({ title, photo, price }, index) => (
           <Col
-          key={index +1}
+            key={index + 1}
             md={{ span: 8 }}
             lg={{ span: 6 }}
             xs={{ span: 24 }}

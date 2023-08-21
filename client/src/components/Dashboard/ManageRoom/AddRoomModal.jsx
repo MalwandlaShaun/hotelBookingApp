@@ -6,15 +6,12 @@ import {
   InputNumber,
   message,
   Modal,
-  Select
+  Select,
 } from "antd";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FiCamera } from "react-icons/fi";
-import {
-  ADD_NEW_ROOM,
-  GET_HOTELS
-} from "../../../Api/ApiConstant";
+import { ADD_NEW_ROOM, GET_HOTELS } from "../../../Api/ApiConstant";
 import { getData, postData } from "../../../Api/commonServices";
 import { Row } from "antd";
 
@@ -22,14 +19,14 @@ const { Option } = Select;
 const AddRoomHotelModal = ({
   isRoomModalVisible,
   setIsRoomModalVisible,
-  setRender
+  setRender,
 }) => {
   const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(false);
   const [hotels, setHotels] = useState([]);
   const [city, setCity] = useState(null);
   const [hotelSelectId, setHotelSelectId] = useState(null);
-  const [allRoomImage, setAllRoomImage] = useState([ ]);
+  const [allRoomImage, setAllRoomImage] = useState([]);
   const [rooms, setRooms] = useState([]);
 
   console.log("city", city, hotels);
@@ -57,7 +54,7 @@ const AddRoomHotelModal = ({
     const getPost = async () => {
       try {
         const { data } = await getData(GET_HOTELS, {
-          city: city
+          city: city,
         });
         setHotels(data.hotels.allHotels);
       } catch (err) {
@@ -85,33 +82,35 @@ const AddRoomHotelModal = ({
       price: values.price,
       photo: imageUrl,
       photos: allRoomImage,
-      roomNumbers: rooms
-    }
+      roomNumbers: rooms,
+    };
     addNewRoom(newRoom);
   };
 
   //ALL Image Upload
-    const handleAllImageUpload = async (e) => {
-      setLoading(true);
-      console.log(e.target.files[0]);
-      const imageFile = e.target.files[0];
-      const data = new FormData();
-      data.append("file", imageFile);
-      data.append("upload_preset", "booking_hotel");
+  const handleAllImageUpload = async (e) => {
+    setLoading(true);
+    console.log(e.target.files[0]);
+    const imageFile = e.target.files[0];
+    const data = new FormData();
+    data.append("file", imageFile);
+    data.append("upload_preset", "booking_hotel");
 
-      try {
-        const result = await axios.post(
-          `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/upload`,
-          data
-        );
-        setAllRoomImage([...allRoomImage, result.data.secure_url]);
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    try {
+      const result = await axios.post(
+        `https://api.cloudinary.com/v1_1/${
+          import.meta.env.REACT_APP_CLOUD_NAME
+        }/upload`,
+        data
+      );
+      setAllRoomImage([...allRoomImage, result.data.secure_url]);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    // Upload Cover Room Image
+  // Upload Cover Room Image
   const handleImageUpload = async (e) => {
     setLoading(true);
     console.log(e.target.files[0]);
@@ -122,7 +121,9 @@ const AddRoomHotelModal = ({
 
     try {
       const result = await axios.post(
-        `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/upload`,
+        `https://api.cloudinary.com/v1_1/${
+          import.meta.env.REACT_APP_CLOUD_NAME
+        }/upload`,
         data
       );
       setImageUrl(result.data.secure_url);
@@ -131,12 +132,11 @@ const AddRoomHotelModal = ({
       console.log(error);
     }
   };
-console.log('ROOMS',rooms);
+  console.log("ROOMS", rooms);
   const handleChangeRoom = (value) => {
-    value.map((room)=> 
-        setRooms([...rooms, { number: room, unavailableDates: []}])
-
-    )
+    value.map((room) =>
+      setRooms([...rooms, { number: room, unavailableDates: [] }])
+    );
   };
 
   return (
@@ -164,7 +164,7 @@ console.log('ROOMS',rooms);
               onChange={handleImageUpload}
             />
             <div className="svg-avatar">
-              <label for="img">
+              <label htmlFor="img">
                 <FiCamera style={{ fontSize: "40px", cursor: "pointer" }} />
               </label>
             </div>
@@ -187,8 +187,8 @@ console.log('ROOMS',rooms);
             label="Title"
             rules={[
               {
-                required: true
-              }
+                required: true,
+              },
             ]}
           >
             <Input placeholder="Title" />
@@ -201,8 +201,8 @@ console.log('ROOMS',rooms);
                 rules={[
                   {
                     required: true,
-                    message: "Select Max People!"
-                  }
+                    message: "Select Max People!",
+                  },
                 ]}
               >
                 <Select
@@ -227,8 +227,8 @@ console.log('ROOMS',rooms);
                 label="Price "
                 rules={[
                   {
-                    required: true
-                  }
+                    required: true,
+                  },
                 ]}
               >
                 <InputNumber
@@ -245,8 +245,8 @@ console.log('ROOMS',rooms);
             rules={[
               {
                 required: true,
-                message: "Select your city!"
-              }
+                message: "Select your city!",
+              },
             ]}
           >
             <Select
@@ -277,8 +277,8 @@ console.log('ROOMS',rooms);
             rules={[
               {
                 required: true,
-                message: "Select Max People!"
-              }
+                message: "Select Max People!",
+              },
             ]}
           >
             <Select
@@ -299,15 +299,15 @@ console.log('ROOMS',rooms);
             rules={[
               {
                 required: true,
-                message: "Select Room Numbers!"
-              }
+                message: "Select Room Numbers!",
+              },
             ]}
           >
             <Select
               mode="multiple"
               allowClear
               style={{
-                width: "100%"
+                width: "100%",
               }}
               onChange={handleChangeRoom}
               tokenSeparators={[","]}

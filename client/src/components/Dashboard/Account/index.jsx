@@ -7,10 +7,10 @@ import {
   Input,
   message,
   Progress,
-  Row
+  Row,
 } from "antd";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { GET_USER_PROFILE, UPDATE_PROFILE } from "../../../Api/ApiConstant";
 import { getData, patchData } from "../../../Api/commonServices";
 import useAuth from "./../../../hooks/useAuth";
@@ -24,7 +24,7 @@ const Account = () => {
   const getUserProfile = async () => {
     try {
       const { data } = await getData(GET_USER_PROFILE, {
-        userId: id
+        userId: id,
       });
       setuserProfile(data);
     } catch (error) {
@@ -47,7 +47,7 @@ const Account = () => {
         name: name,
         address: address,
         phone: phone,
-        photo: imageUrl || photo
+        photo: imageUrl || photo,
       });
       if (data) {
         getUserProfile();
@@ -59,8 +59,8 @@ const Account = () => {
             phone: userData.phone,
             name: userData.name,
             address: userData.address,
-            photo: imageUrl || photo
-          }
+            photo: imageUrl || photo,
+          },
         };
         console.log(userData);
         localStorage.setItem("user", JSON.stringify(userProfileData));
@@ -92,7 +92,9 @@ const Account = () => {
 
     try {
       const result = await axios.post(
-        `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/upload`,
+        `https://api.cloudinary.com/v1_1/${
+          import.meta.env.REACT_APP_CLOUD_NAME
+        }/upload`,
         data
       );
       setImageUrl(result.data.secure_url);
@@ -122,19 +124,23 @@ const Account = () => {
                   width: "100px",
                   borderRadius: "50%",
                   objectFit: "cover",
-                  border: "2px solid #2395ff"
+                  border: "2px solid #2395ff",
                 }}
               />
             </div>
             <h4 style={{ marginTop: "10px", marginBottom: "-5px" }}>
               Profile Completeness: {percent}%
             </h4>
-            <Progress percent={percent} status="active" />
+            <Progress
+              style={{ color: "#EC1F46" }}
+              percent={percent}
+              status="active"
+            />
             <Divider />
             {loading && <p style={{ color: "red" }}>Uploading....</p>}
 
-            <label for="myfile">
-              <h3 style={{ color: "#2395ff", cursor: "pointer" }}>
+            <label htmlFor="myfile">
+              <h3 style={{ color: "#EC1F46", cursor: "pointer" }}>
                 Upload Picture
               </h3>
             </label>
@@ -161,7 +167,7 @@ const Account = () => {
                 name: name,
                 email: email,
                 phone: phone,
-                address: address
+                address: address,
               }}
               onFinish={onFinish}
               layout="vertical"
@@ -177,11 +183,15 @@ const Account = () => {
                 <Input addonBefore="+88" placeholder="Phone Number" />
               </Form.Item>
               <Form.Item label="Home Address" name="address">
-                <Input.TextArea placeholder="ex: House 123,Mirpur-1, Dhaka 1216" />
+                <Input.TextArea placeholder="ex: 33 Knight Road, Lindberg Park" />
               </Form.Item>
 
               <Form.Item>
-                <Button type="primary" htmlType="submit">
+                <Button
+                  type="primary"
+                  style={{ backgroundColor: "#EC1F46" }}
+                  htmlType="submit"
+                >
                   Update Profile
                 </Button>
               </Form.Item>

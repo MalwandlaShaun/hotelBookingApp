@@ -1,6 +1,5 @@
-import React from "react";
 import Sidebar from "./common/Sidebar";
-import './common/sidebar.css';
+import "./common/sidebar.css";
 
 const DashBoard = () => {
   return (
