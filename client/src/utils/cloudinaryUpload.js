@@ -13,7 +13,7 @@ const cloudinaryUpload = async (e) => {
     data.append("upload_preset", "service");
     await axios
       .post(
-        `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/upload`,
+        `https://api.cloudinary.com/v1_1/${import.meta.env.REACT_APP_CLOUD_NAME}/upload`,
         data
       )
       .then((res) => {

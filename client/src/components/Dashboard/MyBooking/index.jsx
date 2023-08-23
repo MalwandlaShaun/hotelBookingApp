@@ -46,10 +46,10 @@ const MyBooking = () => {
         {booking.length < 1 && (
           <div className="null">
             <h3 style={{ color: "red" }}>
-              Sorry, You hve no booking ! &#127979;
+              No booking available! &#127979;
             </h3>
             <Link to="/">
-              <button className="btn-secondary">Let's Book a Room</button>
+              <button className="btn-secondary">Book a Room</button>
             </Link>
           </div>
         )}

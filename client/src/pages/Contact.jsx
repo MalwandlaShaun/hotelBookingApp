@@ -1,5 +1,5 @@
-import React from "react";
-import "./Contact.css"; // Import your custom CSS file
+
+import "./Contact.css"; 
 import Footer from "../components/common/Footer/Footer";
 import NavBar from "../components/common/NavBar/NavBar";
 

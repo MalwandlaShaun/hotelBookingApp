@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { GET_USERS } from "../../../Api/ApiConstant";
 import { getData } from "../../../Api/commonServices";
 import loaderZif from "../../../assets/loader.gif";

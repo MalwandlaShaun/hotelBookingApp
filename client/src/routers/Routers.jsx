@@ -12,7 +12,7 @@ const DashboardHomePage = React.lazy(() =>
   import("../pages/Dashboard/DashboardHomePage")
 );
 const Home = React.lazy(() => import("../pages/Home"));
-const Hotels = React.lazy(() => import("../pages/Hotels"));
+
 const Room = React.lazy(() => import("../pages/Room"));
 const About = React.lazy(() => import("../pages/About"));
 const Contact = React.lazy(() => import("../pages/Contact"));
@@ -48,7 +48,7 @@ const Routers = () => {
         <Route path="/Contact" element={<Contact />} />
 
         <Route path="/room/:id/:hotelId" element={<Room />} />
-        <Route path="/hotels" element={<Hotels />} />
+   
         <Route
           path="/auth/register"
           element={isLogin ? <Navigate replace to="/" /> : <Register />}
@@ -70,7 +70,6 @@ const Routers = () => {
             <>
               <Route path="all-bookings" element={<AllBooking />} />
               <Route path="rooms" element={<ManageRoom />} />
-              <Route path="hotels" element={<ManageHotels />} />
             </>
           )}
         </Route>

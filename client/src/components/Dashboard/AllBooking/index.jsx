@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GET_ALL_BOOKING } from "../../../Api/ApiConstant";
 import { getData } from "../../../Api/commonServices";
@@ -44,10 +44,10 @@ const AllBooking = () => {
         {booking.length < 1 && (
           <div style={{ width: "400px", margin: "auto", textAlign: "center" }}>
             <h1 style={{ color: "red" }}>
-              Sorry, You hve no booking ! &#127979;
+              No bookings available &#127979;
             </h1>
             <Link to="/">
-              <button className="btn-secondary">Let's Book a Room</button>
+              <button className="btn-secondary">Book a Room</button>
             </Link>
           </div>
         )}

@@ -1,4 +1,4 @@
-import Hotel from "../models/hotelsModel.js";
+import Hotel from "../models/hotelModel.js";
 import Room from "../models/roomsModel.js";
 import AppError from "../utils/appError.js";
 
@@ -38,17 +38,37 @@ const getRooms = async (req, res) => {
 };
 
 const roomDetails = async (req, res, next) => {
-  const id = req.body.id;
+  const _id = req.body.id;
+  console.log("id", req.body.id);
   try {
-    const roomDetails = await Room.findById(id);
+    const roomDetails = await Room.findById(_id);
+
+    if (!roomDetails) {
+      console.log("Room details not found for id:", _id);
+      return res.status(404).json({
+        status: "error",
+        message: "Room details not found",
+      });
+    }
+
+    console.log("roomDetails", roomDetails);
+
     res.status(200).json({
       status: "success",
       roomDetails: roomDetails,
     });
-  } catch (errors) {
-    next(new AppError(errors));
+  } catch (error) {
+    console.error("Error retrieving room details:", error);
+
+    // Log the complete error object
+    console.error("Complete error object:", error);
+
+    // Pass the error to the error handling middleware
+    next(new AppError("Error retrieving room details", 500));
   }
 };
+
+
 
 // get room by Hotel
 const getRoomsByHotel = async (req, res, next) => {
@@ -59,34 +79,34 @@ const getRoomsByHotel = async (req, res, next) => {
   const limit = req.body.limit * 1 || 100;
   const skip = (page - 1) * limit;
 
+  console.log("hotelId", req.body.hotelId);
+
   try {
-    const hotel = await Hotel.findById(req.body.hotelId);
-    const roomId = await Promise.all(
-      hotel?.rooms?.map((room) => {
-        return room;
-      })
-    );
-    const numRoom = await Room.countDocuments({
-      _id: roomId,
-      price: { $gte: lowPrice, $lte: heighPrice },
-    });
-    if (page) {
-      if (skip > numRoom) next(new AppError("This page does not exist"));
-    }
+    // Find rooms based on the provided hotelId
     const rooms = await Room.find({
-      _id: roomId,
+      hotelId: req.body.hotelId, // Assuming the Room schema has a field for hotelId
       price: { $gte: lowPrice, $lte: heighPrice },
     })
       .skip(skip)
       .limit(limit);
+
+    const numRoom = await Room.countDocuments({
+      hotelId: req.body.hotelId,
+      price: { $gte: lowPrice, $lte: heighPrice },
+    });
+
+    if (page && skip > numRoom) {
+      throw new AppError("This page does not exist");
+    }
 
     res.status(200).json({
       status: "success",
       result: numRoom,
       rooms,
     });
-  } catch (errors) {
-    next(new AppError(errors));
+  } catch (error) {
+    console.log("error", error);
+    next(new AppError(error));
   }
 };
 

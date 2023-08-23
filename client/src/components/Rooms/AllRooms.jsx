@@ -4,18 +4,13 @@ import { Link, useLocation } from "react-router-dom";
 import NavBar from "../common/NavBar/NavBar";
 import "./allRooms.css";
 import Footer from "../common/Footer/Footer";
-
+import { GET_ROOMS_BY_Hotel_ID } from "../../Api/ApiConstant";
+import { getData } from "../../Api/commonServices";
 import { useBookingContext } from "../../context/BookingContext";
 import loaderZif from "../../assets/loader.gif";
-//import { useSelector } from "react-redux";
-//import { GET_HOTELS } from "../../Api/ApiConstant";
-//import { getData } from "../../Api/commonServices";
-import { roomsData } from "../../mockData/roomData";
-
 const { Option } = Select;
 
 const AllRooms = () => {
-  // const { hotels } = useSelector((state) => state.hotels);
   const { booking, setBooking } = useBookingContext();
   const onFinish = (values) => {
     console.log("Success:", values);
@@ -34,58 +29,35 @@ const AllRooms = () => {
     }
   };
 
-  //const [inputRange] = useState(100);
+  const [inputRange] = useState(100);
   const [rooms, setRooms] = useState([]);
   const { state: hotelID } = useLocation();
-  const [totalPage] = useState(null);
+  const [totalPage, setTotalPage] = useState(null);
   const [paginationLimit] = useState(4);
   const [page, setPage] = useState(1);
   const [active, setActive] = useState(1);
-  //const [hotels, setHotels] = useState([]);
-  //const [citys] = useState("Joburg");
-
   console.log("active", active);
   // GET_ROOMS_BY_ID
   useEffect(() => {
-    // const getPost = async () => {
-    //   try {
-    //     const { data } = await getData(GET_HOTELS, {
-    //       city: citys,
-    //     });
-    //setRooms(data.hotels.allHotels);
-    setRooms(roomsData);
+    const getPost = async () => {
+      const filterData = {
+        hotelId: "631263598e84d4338e2bb9c5",
+        lowestPrice: inputRange,
+        heightPrice: 500,
+        page: page,
+        limit: paginationLimit,
+      };
+      try {
+        const { data } = await getData(GET_ROOMS_BY_Hotel_ID, filterData);
+        setTotalPage(data.result);
+        setRooms(data?.rooms);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getPost();
+  }, [hotelID, inputRange, page]);
 
-    // dispatch(setHotel(data.hotels.allHotels));
-    // console.log("data : " + data.hotels);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
-
-    // if (rooms.length === 0) {
-    //   setRooms(hotels);
-    // } else {
-    //   getPost();
-    // }
-    //   const getPost = async () => {
-    //     const filterData = {
-    //       hotelId: hotelID,
-    //       lowestPrice: inputRange,
-    //       heightPrice: 500,
-    //       page: page,
-    //       limit: paginationLimit,
-    //     };
-    //     try {
-    //       const { data } = await getData(GET_ROOMS_BY_Hotel_ID, filterData);
-    //       setTotalPage(data.result);
-    //       setRooms(data?.rooms);
-    //     } catch (err) {
-    //       console.log(err);
-    //     }
-    //   };
-    //   getPost();
-    //}, [hotelID, inputRange, page]);
-  }, []);
   // PAGINATION
   console.log(page);
 

@@ -4,12 +4,13 @@ import {
   getBookingByUser,
   getAllBookings
 } from "../controllers/bookingController.js";
-import { verifyAdmin, verifyUser } from "../middleware/VerifyToken.js";
+
+
 
 const router = express.Router();
 
-router.post("/addBooking",verifyUser, createBooking);
-router.post("/getBookingByUser",verifyUser, getBookingByUser);
-router.post("/allBookings",verifyAdmin ,getAllBookings);
+router.post("/addBooking", createBooking);
+router.post("/getBookingByUser", getBookingByUser);
+router.post("/allBookings" ,getAllBookings);
 
 export default router;

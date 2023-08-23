@@ -2,7 +2,6 @@ import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
 import mongoose from "mongoose";
-import HotelRoutes from "./routes/hotelsRoutes.js";
 import RoomRoutes from "./routes/roomsRoutes.js";
 import cors from "cors";
 const app = express();
@@ -13,13 +12,36 @@ import cookieParser from "cookie-parser";
 import UserRoutes from "./routes/usersRoutes.js";
 import BookingRoutes from "./routes/bookingRoutes.js";
 
+import bodyParser from "body-parser";
+import { Stripe } from "stripe";
+
+const stripe = new Stripe("your_secret_key", {
+  apiVersion: "2020-08-27",
+});
+
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
+app.use(bodyParser.json());
+
+app.post("/create-payment-intent", async (req, res) => {
+  const { amount } = req.body;
+
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount,
+      currency: "usd",
+    });
+
+    res.json({ sessionId: paymentIntent.client_secret });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 // Routes
-app.use("/api/hotels", HotelRoutes);
+
 app.use("/api/room", RoomRoutes);
 app.use("/api/auth", AuthRoutes);
 app.use("/api/users", UserRoutes);

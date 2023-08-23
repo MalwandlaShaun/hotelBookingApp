@@ -1,4 +1,4 @@
-import React from 'react';
+
 import AllRooms from '../components/Rooms/AllRooms';
 
 const Rooms = () => {

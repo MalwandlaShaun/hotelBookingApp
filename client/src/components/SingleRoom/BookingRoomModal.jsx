@@ -1,11 +1,12 @@
 import { Alert, Card, Col, Form, Input, Modal, Row, Tooltip } from "antd";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CHECK_ROOM_AVAILABILITY, CREATE_BOOKING } from "../../Api/ApiConstant";
 import { patchData, postData } from "../../Api/commonServices";
 import { useBookingContext } from "../../context/BookingContext";
 import useAuth from "./../../hooks/useAuth";
 import "./singleRoom.css";
+import PropTypes from "prop-types";
 import swal from "sweetalert";
 
 import { GrCheckboxSelected } from "react-icons/gr";
@@ -13,7 +14,7 @@ const BookingRoomModal = ({
   isBookingModalVisible,
   setIsBookingModalVisible,
   room,
-  hotel
+  hotel,
 }) => {
   const [selectedRooms, setSelectedRooms] = useState([]);
   const [error, setError] = useState(" Select at least one room");
@@ -80,7 +81,7 @@ const BookingRoomModal = ({
           selectedRooms?.map((roomId) => {
             const { res } = patchData(CHECK_ROOM_AVAILABILITY, {
               roomId,
-              dates: allDates
+              dates: allDates,
             });
             // return res;
             console.log("res", res);
@@ -140,13 +141,14 @@ const BookingRoomModal = ({
       phone: values.phone,
       address: values.address,
       userId: id,
-      hotel: hotel.name,
-      hotelAddress: hotel.address,
-      city: hotel.city,
+      hotel: "Holiday Inn",
+      hotelAddress:
+        "Princess of Wales Terrace Cnr Carse O Gowrie, Sunnyside Dr, &, Johannesburg, 2041",
+      city: "Joburg",
       maxPeople: room.maxPeople,
       price: room.price,
       roomName: room.title,
-      roomNumbers: allRoom
+      roomNumbers: allRoom,    
     };
     if (selectedRooms.length > 0) {
       createNewBooking(booking);
@@ -165,7 +167,7 @@ const BookingRoomModal = ({
           layout="vertical"
           initialValues={{
             phone: phone,
-            address: address
+            address: address,
           }}
           onFinish={onFinish}
         >
@@ -198,6 +200,7 @@ const BookingRoomModal = ({
                     </p>
                     {room?.roomNumbers?.map((roomNumber) => (
                       <div
+                        key={roomNumber._id}
                         className="room-number"
                         onClick={(e) =>
                           handleChange(roomNumber._id, e, roomNumber.isTrue)
@@ -215,7 +218,7 @@ const BookingRoomModal = ({
                               backgroundColor: roomNumber.isTrue
                                 ? "#ddd"
                                 : "rgb(87 159 57)",
-                              cursor: roomNumber.isTrue ? "no-drop" : ""
+                              cursor: roomNumber.isTrue ? "no-drop" : "",
                             }}
                           >
                             Room No.({roomNumber.number})
@@ -249,6 +252,13 @@ const BookingRoomModal = ({
       </Modal>
     </div>
   );
+};
+
+BookingRoomModal.propTypes = {
+  isBookingModalVisible: PropTypes.bool.isRequired,
+  setIsBookingModalVisible: PropTypes.func.isRequired,
+  room: PropTypes.object.isRequired,
+  hotel: PropTypes.object.isRequired,
 };
 
 export default BookingRoomModal;

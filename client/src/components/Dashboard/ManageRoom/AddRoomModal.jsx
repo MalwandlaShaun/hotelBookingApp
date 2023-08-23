@@ -9,7 +9,7 @@ import {
   Select,
 } from "antd";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { FiCamera } from "react-icons/fi";
 import { ADD_NEW_ROOM, GET_HOTELS } from "../../../Api/ApiConstant";
 import { getData, postData } from "../../../Api/commonServices";
@@ -98,9 +98,7 @@ const AddRoomHotelModal = ({
 
     try {
       const result = await axios.post(
-        `https://api.cloudinary.com/v1_1/${
-          import.meta.env.REACT_APP_CLOUD_NAME
-        }/upload`,
+        `https://api.cloudinary.com/v1_1/${import.meta.env.REACT_APP_CLOUD_NAME}/upload`,
         data
       );
       setAllRoomImage([...allRoomImage, result.data.secure_url]);
