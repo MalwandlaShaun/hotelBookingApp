@@ -6,26 +6,35 @@ import "./allRooms.css";
 import Footer from "../common/Footer/Footer";
 import { GET_ROOMS_BY_Hotel_ID } from "../../Api/ApiConstant";
 import { getData } from "../../Api/commonServices";
-import { useBookingContext } from "../../context/BookingContext";
+//import { useBookingContext } from "../../context/BookingContext";
 import loaderZif from "../../assets/loader.gif";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setAdult,
+  setChild,
+  setRoom,
+} from "../../features/bookingSlice";
+
 const { Option } = Select;
 
 const AllRooms = () => {
-  const { booking, setBooking } = useBookingContext();
+    const booking = useSelector((state) => state.booking);
+    const dispatch = useDispatch();
+
   const onFinish = (values) => {
     console.log("Success:", values);
   };
 
   const handleChange = (value, key) => {
-    console.log(booking);
+    console.log("booking ",booking);
     if (key === "room") {
-      setBooking({ ...booking, room: value });
+      dispatch(setRoom({ ...booking, room: value }));
     }
     if (key === "adult") {
-      setBooking({ ...booking, adult: value });
+      dispatch(setAdult({ ...booking, adult: value }));
     }
     if (key === "child") {
-      setBooking({ ...booking, child: value });
+      dispatch(setChild({ ...booking, child: value }));
     }
   };
 
@@ -162,7 +171,7 @@ const AllRooms = () => {
             </div>
           )}
           <Row gutter={[14, 14]}>
-            {rooms?.map(({ _id, photo }) => (
+            {rooms?.map(({ _id, photo, desc, title, price }) => (
               <Col
                 key={_id}
                 xs={{ span: 24 }}
@@ -182,15 +191,9 @@ const AllRooms = () => {
                   />
                   <div style={{ backgroundColor: "#0A223D" }}>
                     <div>
-                      <h3 style={{ color: "white" }}>Paradise Suite</h3>
-                      <p style={{ color: "white" }}>
-                        The King Bedroom is Mashler HOTEL’s recommended choice
-                        for families looking to enjoy their time in joburg. With
-                        two bedrooms, easy access to the beach, and all
-                        inclusive tours offered from our resort, we ensure you
-                        will never experience a dull moment. Come and spend
-                        evening catching a movie in our private cinema.
-                      </p>
+                      <h3 style={{ color: "white" }}>{title}</h3>
+                      <p style={{ color: "white" }}>{desc}</p>
+                      <p style={{ color: "white" }}>R{price}</p>
                     </div>
                     <div>
                       <Link

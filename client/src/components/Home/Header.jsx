@@ -1,9 +1,10 @@
-import { Carousel, Col, DatePicker, Form, Row, Select } from "antd";
+import {  DatePicker, Form, Select } from "antd";
 import "./Header.css";
 import NavBar from "../common/NavBar/NavBar";
 import { useNavigate } from "react-router-dom";
 import { useBookingContext } from "../../context/BookingContext";
 import mainImage from "../../assets/mainImage.png";
+import { format } from "date-fns";
 
 const { Option } = Select;
 
@@ -13,14 +14,44 @@ const Header = () => {
   const [form] = Form.useForm();
   const { booking, setBooking } = useBookingContext();
 
-  const onFinish = (values) => {
-    console.log("Success:", values);
-    const cityInfo = {
-      name: values.city,
-    };
-    setBooking(values);
-    navigate("/rooms", { state: cityInfo });
+  // const onFinish = (values) => {
+  //   console.log("Success:", values);
+  //   const cityInfo = {
+  //     name: values.city,
+  //   };
+  //   setBooking(values);
+  //   navigate("/rooms", { state: cityInfo });
+  //   console.log("booking : ", booking)
+  // };
+
+
+// ...
+
+const onFinish = (values) => {
+  console.log("Success:", values);
+
+  const arrivalDate = values.arrival.toDate(); // Convert Moment.js object to JavaScript Date
+  const departureDate = values.departure.toDate(); // Convert Moment.js object to JavaScript Date
+
+  const formattedArrivalDate = format(arrivalDate, "dd-MM-yyyy");
+  const formattedDepartureDate = format(departureDate, "dd-MM-yyyy");
+
+  console.log("formattedDepartureDate:", formattedDepartureDate);
+  const cityInfo = {
+    name: values.city,
   };
+
+  setBooking({
+    ...values,
+    arrival: formattedArrivalDate,
+    departure: formattedDepartureDate,
+  });
+
+  navigate("/rooms", { state: cityInfo });
+  console.log("booking : ", booking);
+
+};
+
 
   return (
     <div className="booking">
@@ -223,50 +254,9 @@ const Header = () => {
       </Form>
 
       <div className="carousel" style={{ zIndex: 5, position: "relative" }}>
-        <Carousel autoplay>
-          <div className="carousel-content">
-            <Row>
-              <Col span={18} style={{ marginTop: "10%" }}>
-                <h1>
-                  BOOK YOUR SUMMER HOLIDAYS <br /> WITH US
-                </h1>
-                {/* <div className="carousel-button">
-                  <button>EXPLORE IT</button>
-                </div> */}
-              </Col>
-              <Col span={6}>
-                <div className="image-logo">
-                  <img src={mainImage} alt="" />
-                </div>
-              </Col>
-            </Row>
-          </div>
-          <div className="carousel-content">
-            <Row>
-              <Col span={18} style={{ marginTop: "10%" }}>
-                <h1>
-                  A BRAND NEW HOTEL <br /> BEYOND ORDINARY
-                </h1>
-                {/* <div className="carousel-button">
-                  <button>EXPLORE IT</button>
-                </div> */}
-              </Col>
-              <Col span={6}>
-                <div className="image-logo">
-                  <img
-                    style={{
-                      objectFit: "cover",
-                      width: "100%",
-                      height: "80vh",
-                    }}
-                    src={mainImage}
-                    alt=""
-                  />
-                </div>
-              </Col>
-            </Row>
-          </div>
-        </Carousel>
+        <div >
+          <img src={mainImage} alt="" style={{height: "100vh" , width: "100vw"}} />
+        </div>
       </div>
     </div>
   );

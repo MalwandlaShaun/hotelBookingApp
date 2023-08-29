@@ -1,9 +1,28 @@
-
 .car-footer.align-center {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+}
+.shift {
+  color: gray;
+}
 
+.imageContainer {
+    width: 30vw;
+    height: 50vh;
 }
-.shift{
-    color: gray;
+.cardContainer {
+  width: 60vw;
+  height: 50vh;
+  display: "flex";
+  background-color: "red";
+  margin-bottom: 25;
+  border-radius: "5px";
+  padding: 0;
+  margin: 0;
 }
+
+.cardImage {
+   width: 30vw;
+    height: 50vh;
+}
+
