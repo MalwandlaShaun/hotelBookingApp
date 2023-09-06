@@ -87,8 +87,9 @@ const Account = () => {
     console.log(e.target.files[0]);
     const imageFile = e.target.files[0];
     const data = new FormData();
+     data.append("api_key", "827175248696299");
     data.append("file", imageFile);
-    data.append("upload_preset", "booking_hotel");
+    data.append("upload_preset", "ek6xqjmo");
 
     try {
       const result = await axios.post(
@@ -98,6 +99,7 @@ const Account = () => {
         data
       );
       setImageUrl(result.data.secure_url);
+      console.log(result.data.secure_url)
       setLoading(false);
     } catch (error) {
       console.log(error);

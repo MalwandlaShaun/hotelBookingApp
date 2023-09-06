@@ -1,5 +1,4 @@
 import { useState } from "react";
-//import { GoLocation } from "react-icons/go";
 import "./singleRoom.css";
 import { Col, Row } from "antd";
 import { useCallback } from "react";
@@ -7,18 +6,26 @@ import ImageViewer from "react-simple-image-viewer";
 import BookingRoomModal from "./BookingRoomModal";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
-// import { getData } from "../../Api/commonServices";
-// import { GET_ROOM, GET_SINGLE_HOTEL_DETAILS } from "../../Api/ApiConstant";
+import { getData } from "../../Api/commonServices";
+import { GET_ALL_BOOKING } from "../../Api/ApiConstant";
 import useAuth from "../../hooks/useAuth";
 import { roomsData } from "../../mockData/roomData";
 
+
 const SingleRoom = () => {
+
+
+  const [bookingStatus, setBookingStatus] = useState([]);
+
   const [currentImage, setCurrentImage] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [isBookingModalVisible, setIsBookingModalVisible] = useState(false);
+  //const { id } = useAuth();
+  const [isBooked, setIsBooked] = useState();
 
-  const { id, hotelId } = useParams();
+  const { roomid, hotelId } = useParams();
 
+  console.log("hotel_id and id", hotelId, roomid);
   console.log(currentImage);
   const [room, setRoom] = useState({});
   const [hotel, setHotel] = useState({});
@@ -28,6 +35,7 @@ const SingleRoom = () => {
     setIsViewerOpen(true);
   }, []);
 
+  //const [oldRoom , setOldRoom] = useState()
   const closeImageViewer = () => {
     setCurrentImage(0);
     setIsViewerOpen(false);
@@ -36,41 +44,59 @@ const SingleRoom = () => {
   useEffect(() => {
     // const getRoomDetails = async () => {
     //   try {
-    //     const {
-    //       data: { roomDetails },
-    //     } = await getData(GET_ROOM, { id });
-    //     console.log("singleRoom", roomDetails);
-    //    setRoom(roomDetails);
-    const _id = roomsData.filter((item) => item._id === id);
+    //     const { data } = await getData(GET_BOOKING_BY_USER, {
+    //       userId: id,
+    //     });
+    //     console.log("singleRoom", data);
+    //     setBookingStatus(data.booking);
+    //   } catch (err) {
+    //     console.log("booking status error", err);
+    //   }
+    // };
+    // getRoomDetails();
+    const getRoomDetails = async () => {
+      try {
+        const { data } = await getData(GET_ALL_BOOKING, {});
+        console.log("singleRoom", data);
+        setBookingStatus(data.booking);
+      } catch (err) {
+        console.log("booking status error", err);
+      }
+    };
+    getRoomDetails();
+
+    const _id = roomsData.filter((item) => item._id === roomid);
 
     console.log("_id", _id[0]);
     setRoom(_id[0]);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
-    //   getRoomDetails();
-
-    //   const getHotelDetails = async () => {
-    //     try {
-    //       const {
-    //         data: { hotel },
-    //       } = await getData(GET_SINGLE_HOTEL_DETAILS, { hotelId });
-    //       setHotel(hotel);
-    //     } catch (err) {
-    //       console.log(err);
-    //     }
-    //   };
-    //   getHotelDetails();
-    // }, [hotelId]);
 
     const hotetId = roomsData.filter((item) => item.hotelId === hotelId);
     setHotel(hotetId);
   }, []);
+
+  useEffect(() => {
+    setIsBooked(isAvailable());
+  }, [bookingStatus]);
   const { isLogin } = useAuth();
 
-  console.log(room);
+  console.log("room", room);
+  console.log("singleRoom", bookingStatus);
   //console.log("_id", _id);
+  const isAvailable = () => {
+    let bookedRoom;
+    if (Array.isArray(bookingStatus)) {
+      bookedRoom = bookingStatus.filter((item) => item.roomName === room.title);
+      console.log("bookedRoom", bookedRoom);
+    } else {
+      console.error("bookingStatus is not an array.");
+    }
+
+    if (bookedRoom.length < 1) {
+      return false;
+    } else return true;
+  };
+
+
   const navigate = useNavigate();
   const handleShowModal = () => {
     if (isLogin) {
@@ -87,6 +113,9 @@ const SingleRoom = () => {
         setIsBookingModalVisible={setIsBookingModalVisible}
         room={room}
         hotel={hotel}
+        bookingStatus={bookingStatus}
+        isBooked={isBooked}
+        roomid={roomid}
       />
       <div className="singleRoom">
         <Row className="room-wrapper">
@@ -97,7 +126,7 @@ const SingleRoom = () => {
           >
             <div>
               <h1 style={{ fontFamily: "fantasy", textAlign: "center" }}>
-                King Bedroom
+                {room.title}
               </h1>
 
               <h5 style={{ color: "black" }}>
@@ -196,7 +225,7 @@ const SingleRoom = () => {
           <div className="singleRoomDetailsTwo">
             <h3>ROOM OVERVIEW</h3>
             <p>
-              The King Bedroom is Mashler HOTEL’s recommended choice for
+              The {room.title} is Mashler HOTEL’s recommended choice for
               families looking to enjoy their time in joburg. With two bedrooms,
               easy access to the beach, and all inclusive tours offered from our
               resort, we ensure you will never experience a dull moment. Come

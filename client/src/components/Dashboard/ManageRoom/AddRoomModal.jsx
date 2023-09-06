@@ -9,11 +9,12 @@ import {
   Select,
 } from "antd";
 import axios from "axios";
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FiCamera } from "react-icons/fi";
 import { ADD_NEW_ROOM, GET_HOTELS } from "../../../Api/ApiConstant";
 import { getData, postData } from "../../../Api/commonServices";
 import { Row } from "antd";
+import PropTypes from "prop-types";
 
 const { Option } = Select;
 const AddRoomHotelModal = ({
@@ -34,7 +35,7 @@ const AddRoomHotelModal = ({
     console.log("newData", newHotel);
 
     try {
-      const { data } = await postData(ADD_NEW_ROOM, newHotel);
+      const { data } = await postData(ADD_NEW_ROOM, "Joburg");
       console.log(data);
       if (data) {
         message.success(`New Room added successful...`, 5);
@@ -82,7 +83,7 @@ const AddRoomHotelModal = ({
       price: values.price,
       photo: imageUrl,
       photos: allRoomImage,
-      roomNumbers: rooms,
+      
     };
     addNewRoom(newRoom);
   };
@@ -94,11 +95,14 @@ const AddRoomHotelModal = ({
     const imageFile = e.target.files[0];
     const data = new FormData();
     data.append("file", imageFile);
-    data.append("upload_preset", "booking_hotel");
+        data.append("api_key", "827175248696299");
+        data.append("upload_preset", "ek6xqjmo");
 
     try {
       const result = await axios.post(
-        `https://api.cloudinary.com/v1_1/${import.meta.env.REACT_APP_CLOUD_NAME}/upload`,
+        `https://api.cloudinary.com/v1_1/${
+          import.meta.env.REACT_APP_CLOUD_NAME
+        }/upload`,
         data
       );
       setAllRoomImage([...allRoomImage, result.data.secure_url]);
@@ -115,7 +119,8 @@ const AddRoomHotelModal = ({
     const imageFile = e.target.files[0];
     const data = new FormData();
     data.append("file", imageFile);
-    data.append("upload_preset", "booking_hotel");
+    data.append("api_key", "827175248696299");
+    data.append("upload_preset", "ek6xqjmo");
 
     try {
       const result = await axios.post(
@@ -131,17 +136,13 @@ const AddRoomHotelModal = ({
     }
   };
   console.log("ROOMS", rooms);
-  const handleChangeRoom = (value) => {
-    value.map((room) =>
-      setRooms([...rooms, { number: room, unavailableDates: [] }])
-    );
-  };
+
 
   return (
     <div>
       <Modal
         title="Add Room"
-        visible={isRoomModalVisible}
+        open={isRoomModalVisible}
         onCancel={() => setIsRoomModalVisible(false)}
         footer={null}
       >
@@ -259,14 +260,7 @@ const AddRoomHotelModal = ({
                   .localeCompare(optionB.children.toLowerCase())
               }
             >
-              <Option value="dhaka">Dhaka</Option>
-              <Option value="chittagong">Chittagong</Option>
-              <Option value="rajshahi">Rajshahi</Option>
-              <Option value="khulna">Khulna</Option>
-              <Option value="sylhet">Sylhet</Option>
-              <Option value="rangpur">Rangpur</Option>
-              <Option value="mymensingh">Mymensingh</Option>
-              <Option value="barisal">Barisal</Option>
+              <Option value="Joburg">Joburg</Option>
             </Select>
           </Form.Item>
           <Form.Item
@@ -291,47 +285,7 @@ const AddRoomHotelModal = ({
               ))}
             </Select>
           </Form.Item>
-          <Form.Item
-            style={{ width: "100%", marginTop: "1%", maxHeight: "100%" }}
-            name="RoomNumber"
-            rules={[
-              {
-                required: true,
-                message: "Select Room Numbers!",
-              },
-            ]}
-          >
-            <Select
-              mode="multiple"
-              allowClear
-              style={{
-                width: "100%",
-              }}
-              onChange={handleChangeRoom}
-              tokenSeparators={[","]}
-            >
-              <Option value={101}>101</Option>
-              <Option value={102}>102</Option>
-              <Option value={103}>103</Option>
-              <Option value={104}>104</Option>
-              <Option value={201}>201</Option>
-              <Option value={202}>202</Option>
-              <Option value={203}>203</Option>
-              <Option value={204}>204</Option>
-              <Option value={301}>301</Option>
-              <Option value={302}>302</Option>
-              <Option value={303}>303</Option>
-              <Option value={304}>304</Option>
-              <Option value={401}>401</Option>
-              <Option value={402}>402</Option>
-              <Option value={403}>403</Option>
-              <Option value={404}>404</Option>
-              <Option value={501}>501</Option>
-              <Option value={502}>502</Option>
-              <Option value={503}>503</Option>
-              <Option value={504}>504</Option>
-            </Select>
-          </Form.Item>
+         
           <Form.Item label="Upload Rooms">
             <input
               type="file"
@@ -351,5 +305,12 @@ const AddRoomHotelModal = ({
     </div>
   );
 };
+
+AddRoomHotelModal.propTypes = {
+  isRoomModalVisible: PropTypes.bool.isRequired,
+  setIsRoomModalVisible: PropTypes.func.isRequired,
+  setRender: PropTypes.func.isRequired,
+};
+
 
 export default AddRoomHotelModal;

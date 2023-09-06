@@ -12,8 +12,8 @@ const router = express.Router();
 //GET USERS
 router.post('/allUsers',verifyUser, getAllUsers)
 router.post('/profile',verifyUser, getUserProfile)
-router.patch('/updateProfile',verifyUser, updateProfile)
-router.patch('/updatePassword',verifyUser, updatePassword)
+router.patch('/updateProfile', updateProfile)
+router.patch('/updatePassword', updatePassword)
 
 
 

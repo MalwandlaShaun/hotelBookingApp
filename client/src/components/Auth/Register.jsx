@@ -51,7 +51,8 @@ const Register = () => {
     const imageFile = e.target.files[0];
     const data = new FormData();
     data.append("file", imageFile);
-    data.append("upload_preset", "booking_hotel");
+    data.append("api_key", "827175248696299");
+    data.append("upload_preset", "ek6xqjmo");
 
     try {
       const result = await axios.post(

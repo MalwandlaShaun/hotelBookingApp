@@ -78,7 +78,7 @@ const ManageRoom = () => {
                 alt=""
               />
               <h4>{title}</h4>
-              <p>Price: ${price}</p>
+              <p>Price: R{price}</p>
               <Space>
                 <button className="btn-primary-full">Delete</button>
                 <button className="btn-secondary">Update</button>

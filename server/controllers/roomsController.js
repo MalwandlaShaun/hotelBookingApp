@@ -113,12 +113,12 @@ const getRoomsByHotel = async (req, res, next) => {
 // UPDATE
 const updateRoomAvailability = async (req, res, next) => {
   const { dates } = req.body;
-  const { roomId } = req.body;
-  console.log("id", roomId, "dates", dates);
+  const {booked} = req.body
+ console.log("id", booked, "dates", dates);
 
   try {
     await Room.updateOne(
-      { "roomNumbers._id": roomId },
+      { "booked": booked },
       {
         $push: { "roomNumbers.$.unavailableDates": dates },
       }

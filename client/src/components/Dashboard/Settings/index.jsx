@@ -1,5 +1,4 @@
 import { Button, Card, Divider, Form, Input, InputNumber, message } from "antd";
-import React from "react";
 import { UPDATE_PASSWORD } from "../../../Api/ApiConstant";
 import { patchData } from "../../../Api/commonServices";
 import useAuth from "../../../hooks/useAuth";

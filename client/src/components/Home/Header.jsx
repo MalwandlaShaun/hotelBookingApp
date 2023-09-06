@@ -13,20 +13,7 @@ const Header = () => {
 
   const [form] = Form.useForm();
   const { booking, setBooking } = useBookingContext();
-
-  // const onFinish = (values) => {
-  //   console.log("Success:", values);
-  //   const cityInfo = {
-  //     name: values.city,
-  //   };
-  //   setBooking(values);
-  //   navigate("/rooms", { state: cityInfo });
-  //   console.log("booking : ", booking)
-  // };
-
-
-// ...
-
+  
 const onFinish = (values) => {
   console.log("Success:", values);
 

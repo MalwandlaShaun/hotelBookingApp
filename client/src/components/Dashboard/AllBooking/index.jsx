@@ -39,7 +39,7 @@ const AllBooking = () => {
           <th>Booking Date</th>
           <th>Booking ID</th>
           <th>Price</th>
-          <th>Room Numbers</th>
+          <th>user Id</th>
         </tr>
         {booking.length < 1 && (
           <div style={{ width: "400px", margin: "auto", textAlign: "center" }}>
@@ -52,21 +52,16 @@ const AllBooking = () => {
           </div>
         )}
         {booking?.map(
-          ({ hotel, phone, date, _id, price, roomName, roomNumbers }) => (
+          ({ hotel,name, phone, date, _id, price, roomName }) => (
             <tr key={_id}>
               <td>{hotel}</td>
               <td>{roomName}</td>
               <td>{phone}</td>
               <td>{new Date(date).toLocaleDateString()}</td>
               <td>{_id.slice(0, 10)}</td>
-              <td>${price}</td>
+              <td>R{price}</td>
               <td>
-                {roomNumbers.map((room) => (
-                  <Button type="default" style={{ marginRight: "3px" }}>
-                    {" "}
-                    {room}
-                  </Button>
-                ))}
+             {name}
               </td>
             </tr>
           )

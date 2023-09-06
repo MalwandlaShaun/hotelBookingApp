@@ -10,7 +10,8 @@ const cloudinaryUpload = async (e) => {
     const imageFile = e.target.files[0];
     const data = new FormData();
     data.append("file", imageFile);
-    data.append("upload_preset", "service");
+    data.append("api_key", "827175248696299");
+    data.append("upload_preset", "ek6xqjmo");
     await axios
       .post(
         `https://api.cloudinary.com/v1_1/${import.meta.env.REACT_APP_CLOUD_NAME}/upload`,

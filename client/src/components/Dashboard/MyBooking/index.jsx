@@ -41,7 +41,7 @@ const MyBooking = () => {
           <th>Phone</th>
           <th>Booking ID</th>
           <th>Price</th>
-          <th>Room Numbers</th>
+         
         </tr>
         {booking.length < 1 && (
           <div className="null">
@@ -55,26 +55,15 @@ const MyBooking = () => {
         )}
 
         {booking?.map(
-          ({ hotel, phone, date, _id, price, roomName, roomNumbers }) => (
+          ({ hotel, phone, date, _id, price, roomName}) => (
             <tr key={_id}>
               <td>{hotel}</td>
               <td>{roomName}</td>
               <td>{new Date(date).toLocaleDateString()}</td>
               <td>{phone}</td>
               <td>{_id.slice(0, 10)}</td>
-              <td>${price}</td>
-              <td>
-                {roomNumbers.map((room, index) => (
-                  <Button
-                    type="default"
-                    style={{ marginRight: "3px" }}
-                    key={index + 1}
-                  >
-                    {" "}
-                    {room}
-                  </Button>
-                ))}
-              </td>
+              <td>R{price}</td>
+             
             </tr>
           )
         )}

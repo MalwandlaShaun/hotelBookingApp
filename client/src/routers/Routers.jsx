@@ -47,7 +47,7 @@ const Routers = () => {
         <Route path="/About" element={<About />} />
         <Route path="/Contact" element={<Contact />} />
 
-        <Route path="/room/:id/:hotelId" element={<Room />} />
+        <Route path="/room/:roomid/:hotelId" element={<Room />} />
    
         <Route
           path="/auth/register"
