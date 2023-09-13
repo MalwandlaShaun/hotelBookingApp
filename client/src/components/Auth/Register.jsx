@@ -5,8 +5,8 @@ import NavBar from "../common/NavBar/NavBar";
 import "./Register.css";
 import axios from "axios";
 import { FiCamera } from "react-icons/fi";
-import { getData } from "../../Api/commonServices";
-import { SIGN_IN_USER, SIGN_UP_USER } from "../../Api/ApiConstant";
+import { getData } from "../../api/commonServices";
+import { SIGN_IN_USER, SIGN_UP_USER } from "../../api/ApiConstant";
 
 const Register = () => {
   const [isRegisterModalVisible, setIsRegisterModalVisible] = useState(true);
