@@ -3,6 +3,7 @@ export const API_BASE_URL = import.meta.env.REACT_APP_API_URL;
 //BOOKING
 const GET_ROOMS = "/api/room/allRooms";
 const GET_ROOM = "/api/room/details";
+const GET_ALL_ROOMS = "/api/room/getAllRooms";
 
 const GET_ROOMS_BY_Hotel_ID = "/api/room/getRoomsByHotel";
 const GET_SINGLE_HOTEL_DETAILS = "/api/hotels/singleHotel";
@@ -27,6 +28,7 @@ const UPDATE_PASSWORD = "/api/users/updatePassword";
 
 
 export {
+  GET_ALL_ROOMS,
   GET_ROOMS,
   GET_ROOM,
   GET_ROOMS_BY_Hotel_ID,

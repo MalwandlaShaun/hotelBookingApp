@@ -9,10 +9,10 @@ import {
   Select,
 } from "antd";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FiCamera } from "react-icons/fi";
-import { ADD_NEW_ROOM, GET_HOTELS } from "../../../Api/ApiConstant";
-import { getData, postData } from "../../../Api/commonServices";
+import { ADD_NEW_ROOM } from "../../../Api/ApiConstant";
+import { postData } from "../../../Api/commonServices";
 import { Row } from "antd";
 import PropTypes from "prop-types";
 
@@ -24,18 +24,16 @@ const AddRoomHotelModal = ({
 }) => {
   const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [hotels, setHotels] = useState([]);
   const [city, setCity] = useState(null);
-  const [hotelSelectId, setHotelSelectId] = useState(null);
   const [allRoomImage, setAllRoomImage] = useState([]);
   const [rooms, setRooms] = useState([]);
 
-  console.log("city", city, hotels);
-  const addNewRoom = async (newHotel) => {
-    console.log("newData", newHotel);
+  console.log("city", city);
+  const addNewRoom = async (newRoom) => {
+    console.log("newData", newRoom);
 
     try {
-      const { data } = await postData(ADD_NEW_ROOM, "Joburg");
+      const { data } = await postData(ADD_NEW_ROOM, newRoom);
       console.log(data);
       if (data) {
         message.success(`New Room added successful...`, 5);
@@ -48,42 +46,20 @@ const AddRoomHotelModal = ({
     }
   };
 
-  // HOTEL
-
-  // GET_ROOMS
-  useEffect(() => {
-    const getPost = async () => {
-      try {
-        const { data } = await getData(GET_HOTELS, {
-          city: city,
-        });
-        setHotels(data.hotels.allHotels);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getPost();
-  }, [city]);
-  console.log("hotelId", hotelSelectId);
-  // GET_CITY
   const handleCHangeCIty = (value) => {
     setCity(value);
-  };
-
-  const handleCHangeHotelName = (value) => {
-    setHotelSelectId(value);
   };
 
   const onFinish = (values) => {
     console.log(values);
     const newRoom = {
-      hotelId: hotelSelectId,
+      hotelId: "631263598e84d4338e2bb9c5",
       title: values.title,
       maxPeople: values.maxPeople,
       price: values.price,
       photo: imageUrl,
+      desc: values.desc,
       photos: allRoomImage,
-      
     };
     addNewRoom(newRoom);
   };
@@ -95,8 +71,8 @@ const AddRoomHotelModal = ({
     const imageFile = e.target.files[0];
     const data = new FormData();
     data.append("file", imageFile);
-        data.append("api_key", "827175248696299");
-        data.append("upload_preset", "ek6xqjmo");
+    data.append("api_key", "827175248696299");
+    data.append("upload_preset", "ek6xqjmo");
 
     try {
       const result = await axios.post(
@@ -136,7 +112,6 @@ const AddRoomHotelModal = ({
     }
   };
   console.log("ROOMS", rooms);
-
 
   return (
     <div>
@@ -250,7 +225,7 @@ const AddRoomHotelModal = ({
           >
             <Select
               showSearch
-              placeholder="Search City"
+              placeholder="Select City"
               optionFilterProp="children"
               onChange={handleCHangeCIty}
               filterOption={(input, option) => option.children.includes(input)}
@@ -264,28 +239,16 @@ const AddRoomHotelModal = ({
             </Select>
           </Form.Item>
           <Form.Item
-            style={{ width: "100%", marginTop: "1%", maxHeight: "100%" }}
-            name="hotelName"
+            label="Room description"
+            name="desc"
             rules={[
               {
                 required: true,
-                message: "Select Max People!",
               },
             ]}
           >
-            <Select
-              placeholder="Select Hotel"
-              showSearch
-              onChange={handleCHangeHotelName}
-            >
-              {hotels?.map(({ name, _id }) => (
-                <Option style={{ width: "100%" }} value={_id} key={_id}>
-                  {name}
-                </Option>
-              ))}
-            </Select>
+            <Input.TextArea placeholder="Room description" />
           </Form.Item>
-         
           <Form.Item label="Upload Rooms">
             <input
               type="file"
@@ -311,6 +274,5 @@ AddRoomHotelModal.propTypes = {
   setIsRoomModalVisible: PropTypes.func.isRequired,
   setRender: PropTypes.func.isRequired,
 };
-
 
 export default AddRoomHotelModal;

@@ -1,4 +1,4 @@
-import { Button } from "antd";
+//import { Button } from "antd";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GET_BOOKING_BY_USER } from "../../../Api/ApiConstant";
@@ -41,13 +41,11 @@ const MyBooking = () => {
           <th>Phone</th>
           <th>Booking ID</th>
           <th>Price</th>
-         
+          <th>No. Of Days</th>
         </tr>
         {booking.length < 1 && (
           <div className="null">
-            <h3 style={{ color: "red" }}>
-              No booking available! &#127979;
-            </h3>
+            <h3 style={{ color: "red" }}>No booking available! &#127979;</h3>
             <Link to="/">
               <button className="btn-secondary">Book a Room</button>
             </Link>
@@ -55,15 +53,15 @@ const MyBooking = () => {
         )}
 
         {booking?.map(
-          ({ hotel, phone, date, _id, price, roomName}) => (
+          ({ hotel, phone, date, _id, price, roomName, totaldays }) => (
             <tr key={_id}>
               <td>{hotel}</td>
               <td>{roomName}</td>
-              <td>{new Date(date).toLocaleDateString()}</td>
+              <td>{date}</td>
               <td>{phone}</td>
               <td>{_id.slice(0, 10)}</td>
-              <td>R{price}</td>
-             
+              <td>R{price * (totaldays > 0 ? totaldays : 1)}</td>
+              <td>{totaldays}</td>
             </tr>
           )
         )}

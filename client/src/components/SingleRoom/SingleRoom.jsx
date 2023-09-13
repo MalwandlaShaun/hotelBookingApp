@@ -9,27 +9,21 @@ import { useEffect } from "react";
 import { getData } from "../../Api/commonServices";
 import { GET_ALL_BOOKING } from "../../Api/ApiConstant";
 import useAuth from "../../hooks/useAuth";
-import { roomsData } from "../../mockData/roomData";
-
+// import { roomsData } from "../../mockData/roomData";
 
 const SingleRoom = () => {
-
-
   const [bookingStatus, setBookingStatus] = useState([]);
-
   const [currentImage, setCurrentImage] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [isBookingModalVisible, setIsBookingModalVisible] = useState(false);
-  //const { id } = useAuth();
   const [isBooked, setIsBooked] = useState();
 
   const { roomid, hotelId } = useParams();
 
-  console.log("hotel_id and id", hotelId, roomid);
   console.log(currentImage);
   const [room, setRoom] = useState({});
   const [hotel, setHotel] = useState({});
-  //const [hotel] = useState({});
+
   const openImageViewer = useCallback((index) => {
     setCurrentImage(index);
     setIsViewerOpen(true);
@@ -42,18 +36,6 @@ const SingleRoom = () => {
   };
 
   useEffect(() => {
-    // const getRoomDetails = async () => {
-    //   try {
-    //     const { data } = await getData(GET_BOOKING_BY_USER, {
-    //       userId: id,
-    //     });
-    //     console.log("singleRoom", data);
-    //     setBookingStatus(data.booking);
-    //   } catch (err) {
-    //     console.log("booking status error", err);
-    //   }
-    // };
-    // getRoomDetails();
     const getRoomDetails = async () => {
       try {
         const { data } = await getData(GET_ALL_BOOKING, {});
@@ -64,15 +46,31 @@ const SingleRoom = () => {
       }
     };
     getRoomDetails();
-
-    const _id = roomsData.filter((item) => item._id === roomid);
-
-    console.log("_id", _id[0]);
-    setRoom(_id[0]);
-
-    const hotetId = roomsData.filter((item) => item.hotelId === hotelId);
-    setHotel(hotetId);
   }, []);
+
+
+
+  // console.log(retrievedData);
+
+  // const currentRoom = retrievedData.filter((item) => item._id === roomid);
+
+  // console.log("currentRoom", currentRoom[0]);
+  // setRoom(currentRoom[0]);
+
+  // const hotetId = retrievedData.filter((item) => item.hotelId === hotelId);
+  // setHotel(hotetId);
+
+  useEffect(() => {
+      const storedData = localStorage.getItem("rooms");
+
+      // Parse the JSON string back into a JavaScript object
+      const retrievedData = JSON.parse(storedData);
+    const currentRoom = retrievedData.filter((item) => item._id === roomid);
+    setRoom(currentRoom[0]);
+
+    const hotetId = retrievedData.filter((item) => item.hotelId === hotelId);
+    setHotel(hotetId);
+  }, [roomid, hotelId]);
 
   useEffect(() => {
     setIsBooked(isAvailable());
@@ -81,7 +79,7 @@ const SingleRoom = () => {
 
   console.log("room", room);
   console.log("singleRoom", bookingStatus);
-  //console.log("_id", _id);
+
   const isAvailable = () => {
     let bookedRoom;
     if (Array.isArray(bookingStatus)) {
@@ -95,7 +93,6 @@ const SingleRoom = () => {
       return false;
     } else return true;
   };
-
 
   const navigate = useNavigate();
   const handleShowModal = () => {
@@ -130,8 +127,8 @@ const SingleRoom = () => {
               </h1>
 
               <h5 style={{ color: "black" }}>
-                Enjoy a spacious and relaxing environment during you stay at
-                Suay Resort
+                Enjoy a spacious and relaxing environment during you stay in out
+                Hotel
               </h5>
             </div>
           </Col>

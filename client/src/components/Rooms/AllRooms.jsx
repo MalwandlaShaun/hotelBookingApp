@@ -40,7 +40,7 @@ const AllRooms = () => {
 
   const [inputRange] = useState(100);
   const [rooms, setRooms] = useState([]);
-  const { state: hotelID } = useLocation();
+  const hotelID = "631263598e84d4338e2bb9c5";
   const [totalPage, setTotalPage] = useState(null);
   const [paginationLimit] = useState(4);
   const [page, setPage] = useState(1);
@@ -59,7 +59,10 @@ const AllRooms = () => {
       try {
         const { data } = await getData(GET_ROOMS_BY_Hotel_ID, filterData);
         setTotalPage(data.result);
-        setRooms(data?.rooms);
+          setRooms(data?.rooms);
+          const jsonData = JSON.stringify(data?.rooms);
+
+          localStorage.setItem("rooms", jsonData);
       } catch (err) {
         console.log(err);
       }

@@ -1,77 +1,105 @@
-import React from "react";
-import "./About.css"; // Import your custom CSS file
-import Footer from "../components/common/Footer/Footer";
+import "./About.css"
 import NavBar from "../components/common/NavBar/NavBar";
+import Footer from "../components/common/Footer/Footer";
 
-const About = () => {
+function AboutUs() {
   return (
-    <div className="">
-      {/* Navbar */}
-      <div className="booking-container" style={{ margin: "0 5%" }}>
-        <div className="top-header">
-          <NavBar />
-        </div>
+    <>
+      <div className="top-header" style={{ margin: "0 5%" }}>
+        <NavBar />
       </div>
-      {/* About Us */}
-      <div className="about-container">
-        <h1 className="text-center">About Me</h1>
-
-        <div className="row">
-          <div className="col-md-6 mx-auto">
+      <div>
+        <header className="main-header">
+          <h1>About Mashler Hotel</h1>
+        </header>
+        <div className="container">
+          <section className="section-headers">
+            <h2>Our Story</h2>
             <p>
-              Hello! My name is <span id="name"></span>
-              <span id="surname"></span> and I am a software developer with over
-              two years of experience building web applications with HTML, CSS,
-              JavaScript, React, MongoDB, Express, and Node.
+              Mashler Hotel was established in 1990 by Mr. John Mashler, a
+              visionary entrepreneur with a deep love for hospitality. His dream
+              was to create a haven where travelers from around the world could
+              find solace, elegance, and exceptional service. Over the years,
+              Mashler Hotel has grown to become an iconic destination for both
+              leisure and business travelers.
             </p>
+          </section>
+          <section className="section-headers">
+            <h2>Our Commitment</h2>
             <p>
-              I received my education from <span id="education"></span>, where I
-              excelled in Mathematics and Physical Sciences, earning outstanding
-              grades. Later, I studied <span id="major"></span> at
-              <span id="university"></span>, where I majored in these fields and
-              earned distinctions in Multivariable Calculus and Abstract
-              Mathematics. Since then, I have continued to expand my knowledge
-              and skills through various online resources and courses, including
-              <span id="courses"></span>.
+              At Mashler Hotel, we are committed to exceeding your expectations.
+              Our dedicated team of professionals is trained to anticipate your
+              every need and ensure your stay is nothing short of exceptional.
+              Whether you're here for a romantic getaway, a family vacation, or
+              a corporate event, we go the extra mile to make your visit truly
+              memorable.
             </p>
-            <section id="projects">
-              <p>Here are some of the projects that I have completed:</p>
-              <ul id="projects-list"></ul>
-            </section>
-
+          </section>
+          <section className="section-headers">
+            <h2>Luxurious Accommodations</h2>
             <p>
-              In addition to my projects, I also have freelancing experience,
-              which has taught me how to work with clients, other developers and
-              also building responsive, accessible, and performant applications.
-              During my time as a freelancer, I contributed to various projects
-              and accomplishments.
+              Experience the epitome of luxury in our well-appointed guest rooms
+              and suites. Each room is tastefully decorated and equipped with
+              modern amenities to ensure your comfort and relaxation. From
+              breathtaking city views to plush bedding, your stay at Mashler
+              Hotel will be a true indulgence.
             </p>
+          </section>
+          <section className="section-headers">
+            <h2>Dining Excellence</h2>
             <p>
-              When I'm not coding, I enjoy playing video games and Video
-              editing. My passion for these hobbies has taught me valuable
-              skills, such as attention to detail, creativity, and storytelling,
-              which I apply to my software development work to create engaging
-              and intuitive user experiences.
+              Savor exquisite cuisine at our in-house restaurant, "Gastronome."
+              Our culinary experts craft delectable dishes that cater to every
+              palate. Whether you're in the mood for fine dining or a casual
+              meal, our restaurant offers a diverse menu that celebrates local
+              flavors and international favorites.
             </p>
+          </section>
+          <section className="section-headers">
+            <h2>Meetings and Events</h2>
             <p>
-              I am always looking for new challenges and opportunities to grow
-              as a software developer. If you're interested in learning more
-              about me or my work, please visit my portfolio website at
-              <a
-                href="https://malwandla-portfolio.netlify.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                malwandla-portfolio.netlify.com
-              </a>
-              . Thank you for taking the time to get to know me!
+              Host your next business meeting, conference, or special event at
+              Mashler Hotel. Our state-of-the-art facilities and attentive event
+              planning team are here to ensure the success of your gathering. We
+              offer versatile spaces that can accommodate both small and large
+              groups.
             </p>
-          </div>
+          </section>
+          <section className="section-headers">
+            <h2>Exploring the City</h2>
+            <p>
+              Mashler Hotel's central location makes it the perfect starting
+              point for exploring the city's attractions, shopping districts,
+              and cultural landmarks. Our concierge team is always ready to
+              provide recommendations and assist with reservations.
+            </p>
+          </section>
+          <section className="section-headers">
+            <h2>Contact Us</h2>
+            <p>
+              We invite you to experience the Mashler difference. Book your stay
+              with us today, and let us create memories that last a lifetime. If
+              you have any questions or special requests, please don't hesitate
+              to contact our friendly staff.
+            </p>
+            <address>
+              <strong>Mashler Hotel</strong>
+              <br />
+              Address: 123 Main Street, City Center
+              <br />
+              Phone: (123) 456-7890
+              <br />
+              Email: info@mashlerhotel.com
+              <br />
+              Website:{" "}
+              <a href="http://www.mashlerhotel.com">www.mashlerhotel.com</a>
+            </address>
+          </section>
         </div>
       </div>
       <Footer />
-    </div>
+    </>
   );
-};
+}
 
-export default About;
+export default AboutUs;

@@ -12,7 +12,7 @@ import "./singleRoom.css";
 import PropTypes from "prop-types";
 import swal from "sweetalert";
 import { format } from "date-fns";
-
+import moment from "moment";
 
 import { GrCheckboxSelected } from "react-icons/gr";
 const BookingRoomModal = ({
@@ -99,6 +99,13 @@ const BookingRoomModal = ({
     const arrivalDate = values.arrival.toDate(); // Convert Moment.js object to JavaScript Date
     const departureDate = values.departure.toDate(); // Convert Moment.js object to JavaScript Date
 
+    const toDate = moment(values.arrival, "DD-MM-YYYY")
+    const fromDate = moment(values.departure, "DD-MM-YYYY");
+    const totaldays = moment.duration(fromDate.diff(toDate)).asDays();
+  
+    console.log( "total days : " ,totaldays)
+    //console.log("toDate : ", toDate);
+
     const formattedArrivalDate = format(arrivalDate, "dd-MM-yyyy");
     const formattedDepartureDate = format(departureDate, "dd-MM-yyyy");
 
@@ -119,6 +126,7 @@ const BookingRoomModal = ({
       city: "Joburg",
       maxPeople: room.maxPeople,
       price: room.price,
+      totaldays: Math.floor(totaldays),
       roomName: room.title,
     };
     if (selectedRoom) {

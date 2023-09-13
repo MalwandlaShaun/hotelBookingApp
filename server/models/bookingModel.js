@@ -3,54 +3,54 @@ import mongoose from "mongoose";
 const bookingSchema = mongoose.Schema({
   name: {
     type: String,
-    required: [true, "Name is required"]
+    required: [true, "Name is required"],
   },
-  date:{
-    type: Date,
-    required: [true, "Date is required"]
+  date: {
+    type: String,
+    required: [true, "Date is required"],
   },
-  phone:{
-    type:String,
-    required: [true, "Phone is required"]
+  phone: {
+    type: String,
+    required: [true, "Phone is required"],
   },
   address: {
     type: String,
-    required: [true, "Address is required"]
+    required: [true, "Address is required"],
   },
   userId: {
     type: String,
-    required: [true, "User Id is required"]
+    required: [true, "User Id is required"],
   },
   city: {
     type: String,
-    required: [true, "City is required"]
+    required: [true, "City is required"],
   },
   hotel: {
     type: String,
-    required: [true, "Hotel is required"]
+    required: [true, "Hotel is required"],
   },
   hotelAddress: {
     type: String,
-    required: [true, "Hotel address is required"]
+    required: [true, "Hotel address is required"],
   },
   maxPeople: {
     type: Number,
     required: [true, "Hotel address is required"],
     min: [1, "People  must be above 0 "],
-    max: [5, "People  must be below 5 "]
+    max: [5, "People  must be below 5 "],
   },
   price: {
     type: Number,
-    required: [true, "Price is required"]
+    required: [true, "Price is required"],
+  },
+  totaldays: {
+    type: Number,
+    required: [true, "total days is required"],
   },
   roomName: {
     type: String,
-    required: [true, "RoomName is required"]
+    required: [true, "RoomName is required"],
   },
-  roomNumbers: {
-    type: [Number],
-    required: [true, "RoomNumber is required"]
-  }
 });
 
 export default mongoose.model('Booking', bookingSchema);

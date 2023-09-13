@@ -1,3 +1,10 @@
-.about-container{
-    padding: 40px;
+.main-header{
+    text-align: center;
+}
+.container{
+    padding: 5vh 20vw;
+}
+
+.section-headers{
+    text-align: center;
 }

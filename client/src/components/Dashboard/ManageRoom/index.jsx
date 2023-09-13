@@ -16,7 +16,7 @@ const ManageRoom = () => {
     try {
       const { data } = await getData(GET_ROOMS, {
         lowestPrice: 0,
-        heightPrice: 500,
+        heightPrice: 10000,
       });
       setRooms(data.rooms);
     } catch (err) {

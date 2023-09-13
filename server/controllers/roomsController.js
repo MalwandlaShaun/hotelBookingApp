@@ -3,18 +3,20 @@ import Room from "../models/roomsModel.js";
 import AppError from "../utils/appError.js";
 
 const createRoom = async (req, res, next) => {
-  console.log(req.body.hotelId);
+  console.log(req.body);
   const hotelId = req.body.hotelId;
   try {
     const newRoom = await Room.create(req.body);
-
+    console.log("newRoom", newRoom)
     try {
       await Hotel.findByIdAndUpdate(hotelId, { $push: { rooms: newRoom._id } });
     } catch (error) {
+       console.log(error);
       next(error);
     }
     res.status(200).json(newRoom);
   } catch (errors) {
+    console.log(errors)
     next(new AppError(errors));
   }
 };
@@ -68,7 +70,24 @@ const roomDetails = async (req, res, next) => {
   }
 };
 
+const getAllRooms = async(req, res, next)=> {
 
+  const lowPrice = req.body.lowestPrice;
+  const heighPrice = req.body.heightPrice;
+  try {
+    const getRooms = await Room.find({
+      price: { $gte: lowPrice, $lte: heighPrice },
+    });
+    // const getRooms= await Room.find()
+    res.status(200).json({
+      status: "success",
+      result: getRooms.length,
+      rooms: getRooms,
+    });
+  } catch (errors) {
+    next(new AppError(errors));
+  }
+}
 
 // get room by Hotel
 const getRoomsByHotel = async (req, res, next) => {
@@ -129,6 +148,7 @@ const updateRoomAvailability = async (req, res, next) => {
   }
 };
 export {
+  getAllRooms,
   createRoom,
   getRooms,
   roomDetails,

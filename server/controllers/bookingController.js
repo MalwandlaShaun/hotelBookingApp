@@ -14,7 +14,7 @@ const createBooking = async (req, res, next) => {
     maxPeople,
     price,
     roomName,
-    roomNumbers
+  totaldays
   } = req.body;
   const singleBooking = {
     name,
@@ -28,17 +28,19 @@ const createBooking = async (req, res, next) => {
     maxPeople,
     price,
     roomName,
-    roomNumbers
+    totaldays,
   };
-  console.log(singleBooking);
+  // console.log(singleBooking);
 
   try {
     const newBooking = await Booking.create(singleBooking);
+    console.log("new booking", newBooking._id );
     res.status(201).json({
       status: "success",
       booking: newBooking
     });
   } catch (error) {
+    console.log(error)
     next(new AppError(error));
   }
 };

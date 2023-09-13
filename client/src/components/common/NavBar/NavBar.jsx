@@ -1,12 +1,14 @@
 import { Avatar, Dropdown, Menu, message, PageHeader } from "antd";
-
-import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import useAuth from "../../../hooks/useAuth";
+import { useState, useEffect } from "react";
 import "./NavBar.css";
 const NavBar = () => {
   const { name, photo, isLogin } = useAuth();
+
+
+  
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -19,6 +21,24 @@ const NavBar = () => {
       window.location.reload(false);
     }
   };
+
+   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+   const isSmallScreen = windowWidth <= 860; // Define your breakpoint here
+
+   useEffect(() => {
+     const handleResize = () => {
+       setWindowWidth(window.innerWidth);
+     };
+
+     window.addEventListener("resize", handleResize);
+
+     return () => {
+       window.removeEventListener("resize", handleResize);
+     };
+   }, []);
+
+
+
   const menu = (
     <Menu
       items={[
@@ -65,9 +85,27 @@ const NavBar = () => {
           </Link>
         </span>
       }
-      extra={[
-        <>
-          <div className="items">
+      subTitle={
+        !isSmallScreen ? (
+
+        <div
+          className="centered-subtitle"
+          style={{
+            textAlign: "center",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-around",
+            width: "70vw",
+          }}
+        >
+          <div
+            className="items"
+            style={{
+              marginLeft: "32.5vw",
+              marginRight: "32.5vw",
+              textAlign: "center",
+            }}
+          >
             <Link
               style={{ fontSize: 20, margin: 0, padding: 0, color: "#EC1F46" }}
               to="/About"
@@ -82,7 +120,11 @@ const NavBar = () => {
               Contact Us
             </Link>
           </div>
-          ,
+        </div>
+        ) : null
+      }
+      extra={[
+        <>
           {isLogin ? (
             <Dropdown overlay={menu} placement="bottomLeft" arrow>
               <Avatar style={{ cursor: "pointer" }} size="large" src={photo} />
@@ -90,9 +132,8 @@ const NavBar = () => {
           ) : (
             <>
               <Link to="/auth/register">
-                <button className="btn-primary-full">Login</button>,
+                <button className="btn-primary-full">Login</button>
               </Link>
-              ,
               <Link to="/auth/register">
                 <button className="btn-primary">Register</button>
               </Link>

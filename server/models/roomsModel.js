@@ -18,16 +18,16 @@ const roomSchema = mongoose.Schema({
   price: {
     type: Number,
     min: [50, "Room price must be above 50 "],
-    max: [500, "Room price must be below 500 "],
+    max: [10000, "Room price must be below 500 "],
     required: [true, "A hotel must have a price"],
   },
   photo: {
     type: String,
   },
   photos: [String],
-  booked: {
-    type: Boolean,
-    default: false, // Default value is set to false
+  desc: {
+    type: String,
+    required: [true, "Please enter room description"],
   },
 });
 

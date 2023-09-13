@@ -12,9 +12,9 @@ const Contact = () => {
         </div>
       </div>
       {/* Contact Page */}
-      <div className="container my-5">
-        <h1 className="text-center">Contact Me</h1>
-        <p className="text-center">Get in touch with me:</p>
+      <div className="contact-container my-5">
+        <h1 className="text-center">Contact Us</h1>
+        <p className="text-center">Get in touch with Us:</p>
         <div className="row">
           <div className="col-md-6 mx-auto">
             <form
