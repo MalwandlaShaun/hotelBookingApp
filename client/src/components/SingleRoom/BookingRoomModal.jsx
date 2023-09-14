@@ -17,7 +17,6 @@ import moment from "moment";
 //Payment functions
   import { useEffect } from "react";
   import { loadScript } from "../../utils/paystack"; // A utility function to load scripts dynamically
-  import "./payment.css";
 
 import { GrCheckboxSelected } from "react-icons/gr";
 const BookingRoomModal = ({
