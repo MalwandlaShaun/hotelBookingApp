@@ -22,10 +22,9 @@ const stripe = new Stripe("your_secret_key", {
 // Middleware
 app.use(
   cors({
-    origin: "*",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
+   origin : ["https://hotet-app-client.vercel.app/"],
+   methods : ["POST", "GET"],
+   credentials: true
   })
 );
 app.use(express.json());
