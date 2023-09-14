@@ -6,8 +6,8 @@ import ImageViewer from "react-simple-image-viewer";
 import BookingRoomModal from "./BookingRoomModal";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { getData } from "../../Api/commonServices";
-import { GET_ALL_BOOKING } from "../../Api/ApiConstant";
+import { getData } from "../../api/commonServices";
+import { GET_ALL_BOOKING } from "../../api/ApiConstant";
 import useAuth from "../../hooks/useAuth";
 // import { roomsData } from "../../mockData/roomData";
 

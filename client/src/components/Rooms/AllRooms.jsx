@@ -1,11 +1,11 @@
 import { Card, Col, Form, Row, Select } from "antd";
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import NavBar from "../common/NavBar/NavBar";
 import "./allRooms.css";
 import Footer from "../common/Footer/Footer";
-import { GET_ROOMS_BY_Hotel_ID } from "../../Api/ApiConstant";
-import { getData } from "../../Api/commonServices";
+import { GET_ROOMS_BY_Hotel_ID } from "../../api/ApiConstant";
+import { getData } from "../../api/commonServices";
 //import { useBookingContext } from "../../context/BookingContext";
 import loaderZif from "../../assets/loader.gif";
 import { useSelector, useDispatch } from "react-redux";

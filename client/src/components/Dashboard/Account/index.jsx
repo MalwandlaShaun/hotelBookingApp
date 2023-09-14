@@ -11,8 +11,8 @@ import {
 } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { GET_USER_PROFILE, UPDATE_PROFILE } from "../../../Api/ApiConstant";
-import { getData, patchData } from "../../../Api/commonServices";
+import { GET_USER_PROFILE, UPDATE_PROFILE } from "../../../api/ApiConstant";
+import { getData, patchData } from "../../../api/commonServices";
 import useAuth from "./../../../hooks/useAuth";
 
 const Account = () => {

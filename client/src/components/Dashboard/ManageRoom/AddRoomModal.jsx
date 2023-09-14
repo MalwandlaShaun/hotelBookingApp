@@ -11,8 +11,8 @@ import {
 import axios from "axios";
 import { useState } from "react";
 import { FiCamera } from "react-icons/fi";
-import { ADD_NEW_ROOM } from "../../../Api/ApiConstant";
-import { postData } from "../../../Api/commonServices";
+import { ADD_NEW_ROOM } from "../../../api/ApiConstant";
+import { postData } from "../../../api/commonServices";
 import { Row } from "antd";
 import PropTypes from "prop-types";
 

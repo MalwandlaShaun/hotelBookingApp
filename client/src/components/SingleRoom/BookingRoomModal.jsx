@@ -3,8 +3,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   CREATE_BOOKING,
-} from "../../Api/ApiConstant";
-import { postData } from "../../Api/commonServices";
+} from "../../api/ApiConstant";
+import { postData } from "../../api/commonServices";
 import { useBookingContext } from "../../context/BookingContext";
 import useAuth from "./../../hooks/useAuth";
 import "./singleRoom.css";
@@ -13,6 +13,11 @@ import PropTypes from "prop-types";
 import swal from "sweetalert";
 import { format } from "date-fns";
 import moment from "moment";
+
+//Payment functions
+  import { useEffect } from "react";
+  import { loadScript } from "../../utils/paystack"; // A utility function to load scripts dynamically
+  import "./payment.css";
 
 import { GrCheckboxSelected } from "react-icons/gr";
 const BookingRoomModal = ({
@@ -71,9 +76,11 @@ const BookingRoomModal = ({
     }
   };
 
-  const { name, phone, address, id } = useAuth();
+  const { name, email, phone, address, id } = useAuth();
 
   const createNewBooking = async (bookingData) => {
+
+    
     console.log(bookingData);
     try {
       const { data } = await postData(CREATE_BOOKING, bookingData);
@@ -101,10 +108,11 @@ const BookingRoomModal = ({
 
     const toDate = moment(values.arrival, "DD-MM-YYYY")
     const fromDate = moment(values.departure, "DD-MM-YYYY");
-    const totaldays = moment.duration(fromDate.diff(toDate)).asDays();
+    let totaldays = moment.duration(fromDate.diff(toDate)).asDays();
   
     console.log( "total days : " ,totaldays)
     //console.log("toDate : ", toDate);
+
 
     const formattedArrivalDate = format(arrivalDate, "dd-MM-yyyy");
     const formattedDepartureDate = format(departureDate, "dd-MM-yyyy");
@@ -131,9 +139,34 @@ const BookingRoomModal = ({
     };
     if (selectedRoom) {
       console.log("ready for booking");
+      payWithPaystack(totaldays);
       createNewBooking(booking);
     }
   };
+
+  useEffect(() => {
+    loadScript("https://js.paystack.co/v1/inline.js"); // Load the Paystack script dynamically
+  }, []);
+  const payWithPaystack = (totaldays) => {
+    let handler = window.PaystackPop.setup({
+      key: "pk_test_5b433a97231f9edaa97c5ec4a9b7f3b0c63cf7fa", // Replace with your public key
+      email: email,
+      amount: room.price * Math.floor(totaldays) * 100,
+      currency: "ZAR",
+      ref: "" + Math.floor(Math.random() * 1000000000 + 1),
+      onClose: function () {
+        alert("Window closed.");
+      },
+      callback: function (response) {
+        let message = "Payment complete! Reference: " + response.reference;
+        alert(message);
+      },
+    });
+
+    handler.openIframe();
+  };
+
+
 
   return (
     <div>

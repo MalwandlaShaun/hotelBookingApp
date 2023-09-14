@@ -1,8 +1,8 @@
 import { Card, Col, Row } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { GET_ALL_ROOMS } from "../../Api/ApiConstant";
-import { getData } from "../../Api/commonServices";
+import { GET_ALL_ROOMS } from "../../api/ApiConstant";
+import { getData } from "../../api/commonServices";
 import gofLoader from "../../assets/loader.gif";
 import Link from "antd/lib/typography/Link";
 //import { useDispatch } from "react-redux";

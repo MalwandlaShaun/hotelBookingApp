@@ -1,6 +1,6 @@
-import { Button, Card, Divider, Form, Input, InputNumber, message } from "antd";
-import { UPDATE_PASSWORD } from "../../../Api/ApiConstant";
-import { patchData } from "../../../Api/commonServices";
+import { Button, Card, Divider, Form, Input, message } from "antd";
+import { UPDATE_PASSWORD } from "../../../api/ApiConstant";
+import { patchData } from "../../../api/commonServices";
 import useAuth from "../../../hooks/useAuth";
 import "./index.css";
 const Settings = () => {

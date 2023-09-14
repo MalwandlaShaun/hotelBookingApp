@@ -1,8 +1,8 @@
-import { Button } from "antd";
+//import { Button } from "antd";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { GET_ALL_BOOKING } from "../../../Api/ApiConstant";
-import { getData } from "../../../Api/commonServices";
+import { GET_ALL_BOOKING } from "../../../api/ApiConstant";
+import { getData } from "../../../api/commonServices";
 import "../MyBooking/index.css";
 const AllBooking = () => {
   const [booking, setBooking] = useState([]);
@@ -58,9 +58,9 @@ const AllBooking = () => {
               <td>{phone}</td>
               <td>{date}</td>
               <td>{_id.slice(0, 10)}</td>
-              <td>R{price * (totaldays > 0 ? totaldays : 1)}</td>
+              <td>R{price * (totaldays > 0 ? totaldays + 1 : 1)}</td>
               <td>{name}</td>
-              <td>{totaldays}</td>
+              <td>{totaldays > 0 ? totaldays + 1 : 1}</td>
             </tr>
           )
         )}

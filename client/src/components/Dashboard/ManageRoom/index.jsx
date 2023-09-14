@@ -1,7 +1,7 @@
 import { Button, Card, Col, Input, Row, Space } from "antd";
 import { useEffect, useState } from "react";
-import { GET_ROOMS } from "../../../Api/ApiConstant";
-import { getData } from "../../../Api/commonServices";
+import { GET_ROOMS } from "../../../api/ApiConstant";
+import { getData } from "../../../api/commonServices";
 import AddHotelModal from "./AddRoomModal";
 import loaderZif from "../../../assets/loader.gif";
 const { Search } = Input;

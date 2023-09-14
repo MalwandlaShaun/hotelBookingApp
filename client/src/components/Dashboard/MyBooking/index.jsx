@@ -1,8 +1,8 @@
 //import { Button } from "antd";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { GET_BOOKING_BY_USER } from "../../../Api/ApiConstant";
-import { getData } from "../../../Api/commonServices";
+import { GET_BOOKING_BY_USER } from "../../../api/ApiConstant";
+import { getData } from "../../../api/commonServices";
 import useAuth from "../../../hooks/useAuth";
 import "./index.css";
 const MyBooking = () => {
@@ -60,8 +60,8 @@ const MyBooking = () => {
               <td>{date}</td>
               <td>{phone}</td>
               <td>{_id.slice(0, 10)}</td>
-              <td>R{price * (totaldays > 0 ? totaldays : 1)}</td>
-              <td>{totaldays}</td>
+              <td>R{price * (totaldays > 0 ? totaldays + 1 : 1)}</td>
+              <td>{totaldays > 0 ? totaldays + 1 : 1}</td>
             </tr>
           )
         )}
