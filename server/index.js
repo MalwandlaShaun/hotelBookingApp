@@ -21,7 +21,10 @@ const stripe = new Stripe("your_secret_key", {
 
 // Middleware
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*"); // Allow requests from any origin
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://hotet-app-api-2-0.onrender.com"
+  ); // Replace with your client's domain
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
@@ -29,6 +32,7 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Credentials", "true"); // Allow credentials
   next();
 });
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json());
