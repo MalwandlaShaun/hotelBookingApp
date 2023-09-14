@@ -68,6 +68,7 @@ const connection = async () => {
       useNewUrlParser: true,
     });
   } catch (error) {
+    console.log(error)
     throw new AppError("Database connection error", 500);
   }
 };
