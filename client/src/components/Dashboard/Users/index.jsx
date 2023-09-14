@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { GET_USERS } from "../../../Api/ApiConstant";
-import { getData } from "../../../Api/commonServices";
+import { GET_USERS } from "../../../api/ApiConstant";
+import { getData } from "../../../api/commonServices";
 import loaderZif from "../../../assets/loader.gif";
 
 import "./index.css";
