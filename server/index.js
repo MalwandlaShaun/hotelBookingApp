@@ -13,44 +13,21 @@ import UserRoutes from "./routes/usersRoutes.js";
 import BookingRoutes from "./routes/bookingRoutes.js";
 
 import bodyParser from "body-parser";
-import { Stripe } from "stripe";
 
-const stripe = new Stripe("your_secret_key", {
-  apiVersion: "2020-08-27",
-});
 
 // Middleware
-app.use((req, res, next) => {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://hotet-app-api-2-0.onrender.com"
-  ); // Replace with your client's domain
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  res.header("Access-Control-Allow-Credentials", "true"); // Allow credentials
-  next();
-});
+app.use(
+  cors({
+    origin: ["https://hotet-app-client.vercel.app"],
+    methods: ["POST", "GET", "DELETE", "PATCH"],
+    credentials: true
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-app.post("/create-payment-intent", async (req, res) => {
-  const { amount } = req.body;
-
-  try {
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount,
-      currency: "usd",
-    });
-
-    res.json({ sessionId: paymentIntent.client_secret });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
 
 // Routes
 
