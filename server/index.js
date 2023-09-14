@@ -20,13 +20,7 @@ const stripe = new Stripe("your_secret_key", {
 });
 
 // Middleware
-app.use(
-  cors({
-   origin : ["https://hotet-app-client.vercel.app/"],
-   methods : ["POST", "GET"],
-   credentials: true
-  })
-);
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json());
