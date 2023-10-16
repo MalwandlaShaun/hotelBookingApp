@@ -16,7 +16,7 @@ const Register = () => {
 
   const navigate = useNavigate();
   const handleCloseModal = () => {
-    navigate("/");
+    navigate(-1);
   };
 
   const signUpUser = async (userInfo) => {
