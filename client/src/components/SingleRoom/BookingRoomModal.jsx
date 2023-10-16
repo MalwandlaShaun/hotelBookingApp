@@ -33,7 +33,7 @@ const BookingRoomModal = ({
   //const [phoneNumber, setPhoneNumber] = useState("");
 
   const validatePhoneNumber = (rule, value, callback) => {
-    const phoneNumberPattern = /^[0-9]{10}$/; // Customize the regex pattern as per your requirements
+    const phoneNumberPattern = /^0[0-9]{9}$/; // Customize the regex pattern as per your requirements
 
     if (!value || value.match(phoneNumberPattern)) {
       callback();
@@ -154,11 +154,11 @@ const BookingRoomModal = ({
         });
 
         handler.openIframe();
-        createNewBooking(booking);
       };
       payWithPaystack(totaldays);
       //createNewBooking(booking);
     }
+    createNewBooking(booking);
   };
 
   useEffect(() => {
