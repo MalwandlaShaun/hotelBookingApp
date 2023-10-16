@@ -15,7 +15,9 @@ const Register = () => {
   const [isLogin, setIsLogin] = useState(false);
 
   const navigate = useNavigate();
-  const handleCloseModal = () => {};
+  const handleCloseModal = () => {
+    setIsRegisterModalVisible(false);
+  };
 
   const signUpUser = async (userInfo) => {
     try {
