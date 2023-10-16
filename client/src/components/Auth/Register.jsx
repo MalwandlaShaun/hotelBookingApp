@@ -16,7 +16,7 @@ const Register = () => {
 
   const navigate = useNavigate();
   const handleCloseModal = () => {
-    navigate(-1);
+    navigate("/");
   };
 
   const signUpUser = async (userInfo) => {
@@ -29,7 +29,7 @@ const Register = () => {
       localStorage.setItem("user", JSON.stringify(userData));
       message.success(`${isLogin ? "Sign In " : "Sign up"} successful...`, 5);
       navigate(-1);
-      navigate("");
+      //navigate("");
     } catch (errors) {
       message.error(errors?.response?.data?.message);
     }
