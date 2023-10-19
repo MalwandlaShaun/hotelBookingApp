@@ -1,6 +1,6 @@
 import { Form, Input, message, Modal } from "antd";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import NavBar from "../common/NavBar/NavBar";
 import "./Register.css";
 import axios from "axios";
@@ -14,7 +14,7 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const handleCloseModal = () => {
     setIsRegisterModalVisible(() => {
       return false;
@@ -30,8 +30,8 @@ const Register = () => {
       const userData = { token: data.token, userInfo: data.data.user };
       localStorage.setItem("user", JSON.stringify(userData));
       message.success(`${isLogin ? "Sign In " : "Sign up"} successful...`, 5);
-      navigate(-1);
-      navigate("");
+      //navigate(-1);
+      // navigate("");
     } catch (errors) {
       message.error(errors?.response?.data?.message);
     }
