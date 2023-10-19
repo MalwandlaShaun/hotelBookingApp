@@ -4,7 +4,8 @@ import { Col, Row } from "antd";
 import { useCallback } from "react";
 import ImageViewer from "react-simple-image-viewer";
 import BookingRoomModal from "./BookingRoomModal";
-import { useNavigate, useParams } from "react-router-dom";
+import LoginModal from "./LoginModal";
+import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { getData } from "../../api/commonServices";
 import { GET_ALL_BOOKING } from "../../api/ApiConstant";
@@ -15,7 +16,9 @@ const SingleRoom = () => {
   const [bookingStatus, setBookingStatus] = useState([]);
   const [currentImage, setCurrentImage] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
+  const [isRegisterModalVisible, setIsRegisterModalVisible] = useState(false);
   const [isBookingModalVisible, setIsBookingModalVisible] = useState(false);
+
   const [isBooked, setIsBooked] = useState();
 
   const { roomid, hotelId } = useParams();
@@ -48,8 +51,6 @@ const SingleRoom = () => {
     getRoomDetails();
   }, []);
 
-
-
   // console.log(retrievedData);
 
   // const currentRoom = retrievedData.filter((item) => item._id === roomid);
@@ -61,10 +62,10 @@ const SingleRoom = () => {
   // setHotel(hotetId);
 
   useEffect(() => {
-      const storedData = localStorage.getItem("rooms");
+    const storedData = localStorage.getItem("rooms");
 
-      // Parse the JSON string back into a JavaScript object
-      const retrievedData = JSON.parse(storedData);
+    // Parse the JSON string back into a JavaScript object
+    const retrievedData = JSON.parse(storedData);
     const currentRoom = retrievedData.filter((item) => item._id === roomid);
     setRoom(currentRoom[0]);
 
@@ -94,12 +95,12 @@ const SingleRoom = () => {
     } else return true;
   };
 
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const handleShowModal = () => {
     if (isLogin) {
       setIsBookingModalVisible(true);
     } else {
-      navigate("/auth/register");
+      setIsRegisterModalVisible(true);
     }
   };
 
@@ -113,6 +114,10 @@ const SingleRoom = () => {
         bookingStatus={bookingStatus}
         isBooked={isBooked}
         roomid={roomid}
+      />
+      <LoginModal
+        isRegisterModalVisible={isRegisterModalVisible}
+        setIsRegisterModalVisible={setIsRegisterModalVisible}
       />
       <div className="singleRoom">
         <Row className="room-wrapper">
