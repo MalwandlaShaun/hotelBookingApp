@@ -17,7 +17,6 @@ const Register = () => {
   const navigate = useNavigate();
   const handleCloseModal = () => {
     setIsRegisterModalVisible(() => {
-      navigate(-1);
       return false;
     });
   };
